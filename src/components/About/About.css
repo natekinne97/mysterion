@@ -1,0 +1,36 @@
+.about{
+    background: #6ECDDD;
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.company-about{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 27vh;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.icon{
+    font-size: 4em;
+}
+
+.company-logo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.about-info{
+    width: 77vh;
+}
+
+.personal-info{
+    display: flex;
+    flex-direction: row;
+}

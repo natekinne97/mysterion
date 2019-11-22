@@ -1,9 +1,10 @@
 {
-  "name": "rate-my-campsite-app",
+  "name": "mysterion",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.22",
+    "@fortawesome/free-brands-svg-icons": "^5.11.2",
     "@fortawesome/free-solid-svg-icons": "^5.10.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "axios": "^0.19.0",
@@ -44,5 +45,17 @@
   "devDependencies": {
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/natekinne97/AuthApp-react-boilerplate.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/natekinne97/AuthApp-react-boilerplate/issues"
+  },
+  "homepage": "https://github.com/natekinne97/AuthApp-react-boilerplate#readme"
 }

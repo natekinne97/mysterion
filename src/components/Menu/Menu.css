@@ -1,0 +1,64 @@
+.menu{
+    background: rgb(0, 0, 0, 0.1);
+    padding: .3em;
+    position: absolute;
+    width: 98%;
+    color: white;
+}
+.menu a{
+    color: white;
+}
+.top-menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.bottom-menu{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottom-menu ul{
+    list-style: none;
+    padding: 0;
+    margin-top: .5em;
+    margin: 0 auto;
+}
+
+.bottom-menu ul li{
+     margin-bottom: .5em;
+}
+
+.hide{
+    display: none;
+}
+
+
+@media screen and (min-width: 1024px){
+    .burger-menu{
+        display: none;
+    }
+
+    .bottom-menu{
+        flex-direction: row;
+    }
+
+    .bottom-menu ul{
+        display: flex;
+        flex-direction: row;
+       
+    }
+
+    .bottom-menu ul li{
+         width: 11vh;
+    }
+
+    .hide{
+        display: flex;
+    }
+}

@@ -1,0 +1,16 @@
+.work{
+    background: #6ECDDD;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 92vh;
+}
+
+.work-img{
+    width: 50%;
+	height: 40%;
+	background-size: cover;
+  	background-position: 50% 50%;
+}

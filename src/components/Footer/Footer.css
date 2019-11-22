@@ -1,0 +1,60 @@
+.footer{
+    margin-top: 1em;
+    background: #9FA781;
+    width: 100%;
+    margin-top: 0;
+    padding: .2em;
+    display: flex;
+    flex-direction: row;
+}
+
+.business{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25vh;
+    padding-top: .2em;
+}
+
+.cloud-icon{
+    margin-top: .4em;
+}
+
+.business h4{
+    margin-top: 0;
+}
+
+.links{
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 50vh;
+}
+
+.links a{
+    color: white;
+}
+
+.list-links{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.list-links ul{
+    list-style: none;
+}
+
+.news-letter{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.red{
+    background: red;
+    color: white;
+}

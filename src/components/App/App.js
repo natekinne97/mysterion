@@ -7,7 +7,13 @@ import LoginPage from '../../routes/LoginPage'
 import CreatePage from '../../routes/CreatePage';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import Reset from '../Reset/Reset';
-
+// my components
+import Menu from '../Menu/Menu';
+import Footer from '../Footer/Footer';
+import Homepage from '../Homepage/Homepage';
+import Work from '../Work/Work';
+import Contact from '../Contact/Contact';
+import About from '../About/About';
 // private route
 // import PrivateRoute from '../../routes/private';
 
@@ -94,12 +100,29 @@ class App extends React.Component {
       <div>
         <nav>
          {/* menu goes here */}
+         <Menu/>
         </nav>
         <main>
           <Switch>
             {/* homepage */}
-           
-           
+            <Route exact path="/" component={Homepage} />
+
+            {/* work page */}
+          <Route
+            path="/work"
+            component={Work}
+          />
+           {/* render the about page */}
+           <Route
+            path="/about"
+            component={About}
+           />
+
+            {/* {render the contact page} */}
+            <Route 
+              path="/contact"
+              component={Contact}
+              />
             {/* login route */}
             <Route
               path="/login"
@@ -124,6 +147,9 @@ class App extends React.Component {
           </Switch>
           
         </main>
+        <footer>
+          <Footer/>
+        </footer>
       </div>
     );
   }

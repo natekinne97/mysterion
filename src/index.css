@@ -1,7 +1,13 @@
 /* all general classes used throughout multiple components will go here */
 *{
-    box-sizing: border-box;
+	box-sizing: border-box;
+	font-family: sans-serif;
 }
+
+html, body{
+	width: 99%;
+}
+
 /* gen form is for making the basic styling for all the forms. */
 .gen-form{
 	text-align: center;
