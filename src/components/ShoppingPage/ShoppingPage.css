@@ -1,0 +1,40 @@
+.shopping-page{
+    background: #6ECDDD;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+.shopping-container{
+   
+    display: flex;
+    
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.shopping-item{
+    border: 1px solid black;
+    margin: .1em;
+    width: 20vh;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 25vh;
+    padding: .3em;
+}
+
+.shopping-item p{
+    margin: 0;
+}
+
+.item-img{
+    width: 50%;
+    height: 50%
+}

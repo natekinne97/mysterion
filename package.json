@@ -25,7 +25,7 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "kill": " sudo kill -9 `sudo lsof -t -i:3000`",
-    "deploy": "now --prod ./build"
+    "deploy": "git push heroku master"
   },
   "eslintConfig": {
     "extends": "react-app"

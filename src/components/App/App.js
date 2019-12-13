@@ -7,6 +7,7 @@ import LoginPage from '../../routes/LoginPage'
 import CreatePage from '../../routes/CreatePage';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import Reset from '../Reset/Reset';
+import itemContext from '../../context/itemContext';
 // my components
 import Menu from '../Menu/Menu';
 import Footer from '../Footer/Footer';
@@ -14,6 +15,11 @@ import Homepage from '../Homepage/Homepage';
 import Work from '../Work/Work';
 import Contact from '../Contact/Contact';
 import About from '../About/About';
+
+// shopping
+import ShoppingPage from '../ShoppingPage/ShoppingPage';
+import ItemInfo from '../ItemInfo/ItemInfo';
+import Cart from '../Cart/Cart';
 // private route
 // import PrivateRoute from '../../routes/private';
 
@@ -22,8 +28,12 @@ import TokenService from '../../services/token-services'
 import authApi from '../../auth-service/auth-service'
 import IdleService from '../../services/idle-services';
 
+
+// admin side
+import AdminMenu from '../../adminComponents/AdminMenu/AdminMenu';
+
 class App extends React.Component {
-  
+  static contextType = itemContext;
   state = { hasError: false }
 
   static getDerivedStateFromError(error) {
@@ -93,6 +103,21 @@ class App extends React.Component {
     this.forceUpdate()
   }
 
+  renderAdminMenu(){
+    return (
+      <>
+        {['/admin-stuff'].map((path, index)=>(
+          <Route
+            key={index}
+            exact
+            path={path}
+            component={AdminMenu}
+          />
+        ))}
+      </>
+    );
+  }
+
 
   render() {
     localStorage.lastUrl = window.location.pathname;
@@ -101,6 +126,8 @@ class App extends React.Component {
         <nav>
          {/* menu goes here */}
          <Menu/>
+         {/* render the admin menu */}
+         {this.renderAdminMenu()}
         </nav>
         <main>
           <Switch>
@@ -118,21 +145,42 @@ class App extends React.Component {
             component={About}
            />
 
+          <Route 
+            path="/cart"
+            component={Cart}
+          />
+
             {/* {render the contact page} */}
             <Route 
               path="/contact"
               component={Contact}
               />
+
+            {/* render item info */}
+            <Route
+              path="/shop/:id"
+              component={ItemInfo}
+            />
+
+            {/* render the shopping page */}
+            <Route
+              exact
+              path="/shop"
+              component={ShoppingPage}
+            />
+
+
+            
             {/* login route */}
             <Route
               path="/login"
               component={LoginPage}
             />
             {/* signup */}
-            <Route
+            {/* <Route
               path="/signup"
               component={CreatePage}
-            />
+            /> */}
 
             {/* forgot password */}
             <Route
