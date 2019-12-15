@@ -32,6 +32,7 @@ import IdleService from '../../services/idle-services';
 // admin side
 import AdminMenu from '../../adminComponents/AdminMenu/AdminMenu';
 
+
 class App extends React.Component {
   static contextType = itemContext;
   state = { hasError: false }
@@ -106,7 +107,7 @@ class App extends React.Component {
   renderAdminMenu(){
     return (
       <>
-        {['/admin-stuff'].map((path, index)=>(
+        {['/admin-stuff', '/admin-stuff/work'].map((path, index)=>(
           <Route
             key={index}
             exact
@@ -118,6 +119,40 @@ class App extends React.Component {
     );
   }
 
+  renderRegularMenu(){
+    return(
+      <>
+        {['/', '/work', '/about', '/cart', '/contact', 
+        '/shop/:id', '/shop'].map((path, index)=>(
+          <Route
+            key={index**4}
+            exact
+            path={path}
+            component={Menu}
+          />
+        ))}
+      </>
+
+    );
+  }
+
+  renderFooter(){
+    return (
+      <>
+        {['/', '/work', '/about', '/cart', '/contact',
+          '/shop/:id', '/shop'].map((path, index) => (
+            <Route
+              key={index ** 3}
+              exact
+              path={path}
+              component={Footer}
+            />
+          ))}
+      </>
+
+    );
+  }
+
 
   render() {
     localStorage.lastUrl = window.location.pathname;
@@ -125,9 +160,11 @@ class App extends React.Component {
       <div>
         <nav>
          {/* menu goes here */}
-         <Menu/>
+          {this.renderRegularMenu()}
+          {/* <Menu/> */}
          {/* render the admin menu */}
          {this.renderAdminMenu()}
+         {/* renders only on the admin side */}
         </nav>
         <main>
           <Switch>
@@ -136,9 +173,22 @@ class App extends React.Component {
 
             {/* work page */}
           <Route
+            exact
             path="/work"
             component={Work}
           />
+          {/* for the sake of code reuse i am using the same elements for
+          editing and deleting.
+          this element takes a parameter for now that says edit and it is a
+          boolean value 
+          in the future it will be based on whether the component has an auth
+          token.
+          */}
+            <Route exact
+              path="/admin-stuff/work"
+            >
+              <Work edit={true}/>
+          </Route>
            {/* render the about page */}
            <Route
             path="/about"
@@ -173,7 +223,7 @@ class App extends React.Component {
             
             {/* login route */}
             <Route
-              path="/login"
+              path="/admin-stuff/login"
               component={LoginPage}
             />
             {/* signup */}
@@ -184,19 +234,20 @@ class App extends React.Component {
 
             {/* forgot password */}
             <Route
-              path='/forgot-password'
+              path='/admin-stuff/forgot-password'
               component={ForgotPassword}
             />
             {/* reset password */}
             <Route
-              path='/reset/:token'
+              path='/admin-stuff/reset/:token'
               component={Reset}
             />
           </Switch>
           
         </main>
         <footer>
-          <Footer/>
+          {/* render the footer */}
+          {this.renderFooter()}
         </footer>
       </div>
     );

@@ -9,7 +9,14 @@ const Slide = ({image}) => {
         backgroundPosition: '50% 60%'
     }
     console.log(image, 'image');
-    return <div className="slide" style={styles}></div>
+   
+    return (
+        <>
+            <div className="slide" style={styles}>
+               
+            </div>
+        </>
+    );
 }
 
 export default Slide
