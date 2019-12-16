@@ -31,7 +31,7 @@ import IdleService from '../../services/idle-services';
 
 // admin side
 import AdminMenu from '../../adminComponents/AdminMenu/AdminMenu';
-
+import NewsLetter from '../../adminComponents/NewsLetters/NewsLetters';
 
 class App extends React.Component {
   static contextType = itemContext;
@@ -107,7 +107,8 @@ class App extends React.Component {
   renderAdminMenu(){
     return (
       <>
-        {['/admin-stuff', '/admin-stuff/work'].map((path, index)=>(
+        {['/admin-stuff', '/admin-stuff/work', '/admin-stuff/items',
+          '/admin-stuff/items/:id', '/admin-stuff/letters'].map((path, index)=>(
           <Route
             key={index}
             exact
@@ -208,19 +209,40 @@ class App extends React.Component {
 
             {/* render item info */}
             <Route
+              
               path="/shop/:id"
               component={ItemInfo}
             />
 
+            <Route
+              path="/admin-stuff/items/:id"
+              render={(props)=><ItemInfo {...props} edit={true} />}
+            />
+             
             {/* render the shopping page */}
             <Route
               exact
               path="/shop"
+             
               component={ShoppingPage}
             />
 
+            <Route
+              exact
+              path="/admin-stuff/items"
+              
+            >
+              <ShoppingPage edit={true}/>
+            </Route>
 
-            
+
+            {/* renders the news letter page for creating and sending new letters */}
+            <Route
+              path="/admin-stuff/letters"
+              component={NewsLetter}
+            />
+
+
             {/* login route */}
             <Route
               path="/admin-stuff/login"

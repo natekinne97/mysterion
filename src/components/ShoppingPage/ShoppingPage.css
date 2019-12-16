@@ -38,3 +38,13 @@
     width: 50%;
     height: 50%
 }
+
+/* changes the size of the container  */
+.edit{
+    width: 20em;
+}
+
+/* edits the size of the item itself */
+.edit-item{
+    height: 34vh;
+}
