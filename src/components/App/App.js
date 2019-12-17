@@ -15,6 +15,7 @@ import Homepage from '../Homepage/Homepage';
 import Work from '../Work/Work';
 import Contact from '../Contact/Contact';
 import About from '../About/About';
+import LandingPage from '../LandingPage/LandingPage';
 
 // shopping
 import ShoppingPage from '../ShoppingPage/ShoppingPage';
@@ -32,6 +33,7 @@ import IdleService from '../../services/idle-services';
 // admin side
 import AdminMenu from '../../adminComponents/AdminMenu/AdminMenu';
 import NewsLetter from '../../adminComponents/NewsLetters/NewsLetters';
+import EditLP from '../../adminComponents/EditLP/EditLP';
 
 class App extends React.Component {
   static contextType = itemContext;
@@ -108,7 +110,8 @@ class App extends React.Component {
     return (
       <>
         {['/admin-stuff', '/admin-stuff/work', '/admin-stuff/items',
-          '/admin-stuff/items/:id', '/admin-stuff/letters'].map((path, index)=>(
+          '/admin-stuff/items/:id', '/admin-stuff/letters',
+        '/admin-stuff/landingpage'].map((path, index)=>(
           <Route
             key={index}
             exact
@@ -169,6 +172,20 @@ class App extends React.Component {
         </nav>
         <main>
           <Switch>
+
+            {/* the landing page */}
+            <Route
+              exact 
+              path="/landingpage"
+              component={LandingPage}
+            />
+
+            <Route
+              path="/admin-stuff/landingpage"
+              component={EditLP}
+            />
+
+           
             {/* homepage */}
             <Route exact path="/" component={Homepage} />
 
