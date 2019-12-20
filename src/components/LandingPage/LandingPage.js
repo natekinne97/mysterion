@@ -10,8 +10,9 @@ import './LandingPage.css';
 
 const LandingPage = (props) =>{
    
+
     return(
-        <div className="landingpage" style={props.styles}>
+        <div className={`landingpage ${props.edit ? 'lp-edit' : ''}`} style={props.styles}>
             {/* allows adming to add a header */}
             {props.header ?
             <h1>{props.header}</h1>
@@ -21,7 +22,7 @@ const LandingPage = (props) =>{
             <p>{props.par}</p>
             : null}
 
-            <form className="letter-form">
+            <form className={`letter-form`}>
                 <label htmlFor="email">Sign up for our news letter.</label>
                <div className="form-things">
                     <input name="email"
@@ -30,7 +31,7 @@ const LandingPage = (props) =>{
                     <button type="submit">Subscribe</button>
                </div>
             </form>
-            <Link to="/">Homepage</Link>
+            <Link to="/" style={props.linkStyle}>Homepage</Link>
         </div>
     );
 }

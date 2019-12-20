@@ -111,7 +111,8 @@ class App extends React.Component {
       <>
         {['/admin-stuff', '/admin-stuff/work', '/admin-stuff/items',
           '/admin-stuff/items/:id', '/admin-stuff/letters',
-        '/admin-stuff/landingpage'].map((path, index)=>(
+          '/admin-stuff/landingpage', '/admin-stuff/highlights',
+          '/admin-stuff/stats'].map((path, index)=>(
           <Route
             key={index}
             exact

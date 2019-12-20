@@ -1,6 +1,6 @@
 import React from 'react';
 import LandingPage from '../../components/LandingPage/LandingPage';
-
+import './EditLP.css';
 // this is for editing the landing page. 
 // the styling and the content.
 
@@ -10,7 +10,8 @@ class EditLP extends React.Component{
     state = {
         style: {},
         header: '',
-        par: ''
+        par: '',
+        linkStyle: {},
     }
 
     formSubmit = e =>{
@@ -26,7 +27,7 @@ class EditLP extends React.Component{
             header: header.value,
             par: par.value
         }
-       
+        let linkStyle = {};
         let styleKeys = Object.keys(styleData);
         let contentKeys = Object.keys(content);
         let alterBgImg = {
@@ -36,12 +37,18 @@ class EditLP extends React.Component{
             backgroundPosition: '50% 60%'
         }
 
+        if(styleData.color){
+            linkStyle.color = styleData.color;
+        }
+
         // take a part the style and change it depending on if an image is used.
         // this will be changed to be the server response.
+        // here we merge the bgimage with the style
         for(let i = 0; i < styleKeys.length; i++){
             if (styleData[styleKeys[i]] && styleKeys[i] === 'image'){
                 console.log('image found');
                 styleData = {...alterBgImg, color: styleData.color ? styleData.color : 'red' }
+                linkStyle.color = styleData.color ? styleData.color : 'red';
                 console.log(styleData);
             }
         }
@@ -57,36 +64,38 @@ class EditLP extends React.Component{
                 delete content[contentKeys[i]];
             }
         }
-        console.log(content.length, ' content', styleData.length, 'style')
+       
         if(content.length === undefined && styleData.length === undefined){
             console.log('submit something');
         }
-
+       
         // determine what is being used for content
         if(content.header && content.par){
             this.setState({
                 header: content.header,
                 par: content.par,
-                style: styleData
+                style: styleData,
+                linkStyle: linkStyle
             });
         }else if(content.header){
             this.setState({
                 header: content.header,
-                style: styleData
+                style: styleData,
+                linkStyle: linkStyle
             });
 
         }else if(content.par){
             this.setState({
                 par: content.par,
-                style: styleData
+                style: styleData,
+                linkStyle: linkStyle
             });
         }else{
             this.setState({
-                style: styleData
+                style: styleData,
+                linkStyle: linkStyle
             })
         }
-
-        
        
     }
 
@@ -110,7 +119,7 @@ class EditLP extends React.Component{
                     <button type="submit">Change</button>
 
                 </form>
-                <LandingPage header={this.state.header} par={this.state.par} styles={this.state.style} />
+                <LandingPage edit='true' header={this.state.header} par={this.state.par} styles={this.state.style} linkStyle={this.state.linkStyle} />
             </div>
         );
     }

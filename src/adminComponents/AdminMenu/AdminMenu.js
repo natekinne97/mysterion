@@ -13,7 +13,7 @@ class AdminMenu extends React.Component{
                <ul className="admin-menu-items">
                     <li><Link to="/admin-stuff/items">Add/Edit/Remove Items</Link></li>
                     <li><Link to="/admin-stuff/work">Porfolio</Link></li>
-                    <li><Link to="/admin-stuff/landing-page">Landing Page</Link></li>
+                    <li><Link to="/admin-stuff/landingpage">Landing Page</Link></li>
                     <li><Link to="/admin-stuff/highlights">High Lights</Link></li>
                     <li><Link to="/admin-stuff/letters">Create/Send Letters</Link></li>
                     <li><Link to="/admin-stuff/stats">View Info Requests</Link></li>
