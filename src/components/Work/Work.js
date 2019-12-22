@@ -116,36 +116,65 @@ class Work extends React.Component{
 
     // displays previous slide
     goToPrevSlide = () => {
-        if (this.state.currentIndex === this.state.images.length - 1) {
+
+
+        // get the list of companies and their color status
+        let {compClicked} = this.state;
+        // get the previous index
+        const prevIndex = this.state.currentIndex;
+
+        if (this.state.currentIndex === 0) {
+            const end = this.state.images.length-1;
+            compClicked[prevIndex] = false;
+            compClicked[end] = true;
             return this.setState({
-                currentIndex: 0,
-                translateValue: 0
+                currentIndex: end,
+                compClicked: compClicked
             })
         }
+
+        // change the previous index to false
+        compClicked[prevIndex] = false;
+        // change the clicked on index to true displaying the color
+        compClicked[prevIndex-1] = true;
 
         // This will not run if we met the if condition above
         this.setState(prevState => ({
             currentIndex: prevState.currentIndex - 1,
-            // translateValue: prevState.translateValue + -(this.slideWidth())
+            compClicked: compClicked
         }));
 
     }
 
     goToNextSlide = () => {
+
+        // get the list of companies and their color status
+        let {compClicked} = this.state;
+        // get the previous index
+        const prevIndex = this.state.currentIndex;
+
+
         // Exiting the method early if we are at the end of the images array.
         // We also want to reset currentIndex and translateValue, so we return
         // to the first image in the array.
         if (this.state.currentIndex === this.state.images.length - 1) {
+            compClicked[prevIndex] = false;
+            compClicked[0] = true;
             return this.setState({
                 currentIndex: 0,
-                translateValue: 0
+                compClicked: compClicked
             })
         }
+
+        // change the previous index to false
+        compClicked[prevIndex] = false;
+        // change the clicked on index to true displaying the color
+        compClicked[prevIndex+1] = true;
 
         // This will not run if we met the if condition above
         this.setState(prevState => ({
             currentIndex: prevState.currentIndex + 1,
-            // translateValue: prevState.translateValue + -(this.slideWidth())
+            companyClicked: compClicked
         }));
     }
 

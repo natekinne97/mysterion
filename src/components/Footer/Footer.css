@@ -1,11 +1,13 @@
 .footer{
-    margin-top: 1em;
-    background: #9FA781;
     width: 100%;
     margin-top: 0;
     padding: .2em;
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
+    height: 7em;
+    color: white;
+    background: #000000;
 }
 
 .business{
@@ -13,7 +15,17 @@
     flex-direction: column;
     align-items: center;
     width: 25vh;
+    justify-content: space-between;
     padding-top: .2em;
+    height: 100%;
+}
+
+.media{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
 }
 
 .cloud-icon{
@@ -24,41 +36,75 @@
     margin-top: 0;
 }
 
-.links{
-    color: white;
+.link-container{
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: space-evenly;
-    width: 50vw;
 }
 
-.links a{
+.link-column{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.list-row{
+    display: flex;
+    flex-direction: row;
+    width: 12em;
+    justify-content: space-evenly;
+    
+}
+
+.link-list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: 5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.link-list a{
     color: white;
 }
 
-.list-links{
-    display: flex;
-    flex-direction: column;
-    
-    justify-content: center;
-}
-
-.list-links ul{
-    list-style: none;
-}
-
-.news-letter{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.new-letter-form{
-    min-width: 12em;
-}
-
-.red{
+.red-btn{
     background: red;
     color: white;
+}
+
+.rights{
+    display: none;
+}
+
+@media screen and (min-width: 1024px){
+    #email{
+        display: none;
+    }
+
+    .rights{
+        display: flex;
+        flex-direction: column;
+        width: 27vw;
+        justify-content: space-between;
+    }
+
+    #mysterion-name{
+        font-family: monospace;
+        margin: 0;
+        font-size: 1.9em;
+    }
+
+    .rights a{
+        font-size: .7em;
+        color: white;
+    }
+
+    .rights-reserved{
+        font-size: .1em;
+    }
 }

@@ -22,39 +22,50 @@ class Footer extends React.Component{
               <h4>Mysterion</h4>
             </div>
 
-           
-
-            {/* important links */}
-            <div className="links">
-              <div className="list-links">
-                <form className="new-letter-form">
+            <div className="link-container">
+              <div className="link-column">
+                <form className="news-letter-form">
                   <input
                     type="email"
-                    name="email"
-                    placeholder="Subscribe to our news letter."
+                    placeholder="Subscribe to our news letter"
+                    required
                   />
-                  <button type="submit">Sign Up</button>
+                  <button type="submit" className="red-btn">
+                    Subscribe
+                  </button>
                 </form>
-                <ul>
-                  <li>
-                    <Link to="/contact">Contact</Link>
-                  </li>
-                  <li>
-                    <Link to="/work">Work</Link>
-                  </li>
-                  <li>
-                    <Link to="/about">About</Link>
-                  </li>
-                </ul>
-              </div>
-              <Link to="/shop">Shop</Link>
-            </div>
-           
 
-            {/* news letter and email */}
-            <div className="new-letter">
-             
-              <a href="meilto:mysterion@gmail.com">mysterion@gmail.com</a>
+                <div className="list-row">
+                  <ul className="link-list">
+                    <li>
+                      <Link to="/contact">Contact</Link>
+                    </li>
+                    <li>
+                      <Link to="/work">Work</Link>
+                    </li>
+                    <li>
+                      <Link to="/about">About</Link>
+                    </li>
+
+                    <li>
+                      <a href="mailto:mysterion@gmail.com" id="email">
+                        Mysterion@gmail.com
+                      </a>
+                    </li>
+                  </ul>
+
+                  <ul className="link-list">
+                    <li>
+                      <Link to="/shop">Shop</Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="rights">
+              <p id="mysterion-name">Mysterion</p>
+              <a href="mailto:mysterion@gmail.com">Mysterion@gmail.com</a>
+              <p className="rights-reserved">&copy; Mysterion LLC 2019 All Rights Reserved</p>
             </div>
           </div>
         );
