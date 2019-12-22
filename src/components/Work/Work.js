@@ -18,6 +18,8 @@ import AddWork from '../../adminComponents/AddWork/Addwork';
 // for better code reuse we are going to add all of the editing and removing in here
 // the adding will be lower down since in the static version we are going to 
 // be using the state
+// the work class  only takes a single pic from each company
+// 
 class Work extends React.Component{
     // this will be removed when we get the backend put together
     static defaultProps = {
@@ -27,7 +29,15 @@ class Work extends React.Component{
         super(props);
         this.state = {
             images: [],
-            data: [],
+            company: [],
+            testimony: [],
+            person: [],
+            scope: [],
+            bottomLine: [],
+            logo: [],
+            link: [],
+            index: [],
+            compClicked: [],
             remove: 'hidden',
             editWork: false,
             addWork: false,
@@ -55,20 +65,51 @@ class Work extends React.Component{
             return data.company;
         })
 
-        let review = roundSTORE.map(data => {
-            return data.review;
+        let testimony = roundSTORE.map(data => {
+            return data.testimony;
         })
-        let data = [];
-        for(let i =0; i < company.length; i++){
-            data[i] = {
-                company: company[i],
-                review: review[i]
-            }
+
+        let person = roundSTORE.map(data => {
+          return data.person;
+        });
+
+        let scope = roundSTORE.map(data => {
+          return data.scope;
+        });
+
+        let bottomLine = roundSTORE.map(data => {
+          return data.bottomLine;
+        });
+
+        let logo = roundSTORE.map(data => {
+          return data.logo;
+        });
+
+        let link = roundSTORE.map(data => {
+          return data.link;
+        });
+
+        let index = roundSTORE.map((data, index) => {
+          return index;
+        });
+        
+        let compClicked = [];
+        for(let i=0; i<roundSTORE.length; i++){
+            if(i=== 0)compClicked[i] = true;
+            else compClicked[i] = false
         }
-       
+
         this.setState({
             images: img,
-            data: data
+            company: company,
+            testimony: testimony,
+            person: person,
+            scope: scope,
+            bottomLine: bottomLine,
+            logo: logo,
+            link: link,
+            index: index,
+            compClicked: compClicked
         }, ()=> console.log(this.state.data, 'data from state'))
         
     }
@@ -112,33 +153,7 @@ class Work extends React.Component{
         return document.querySelector('.slide').clientWidth
     }
    
-    // displays slides
-    slider(){
-        return (
-            <div className="slider">
-
-                <LeftArrow
-                    goToPrevSlide={this.goToPrevSlide}
-                />
-
-                <div className="slider-wrapper"
-                    style={{
-                        transform: `translateX(${this.state.translateValue}px)`,
-                        transition: 'transform ease-out 0.45s'
-                    }}>
-                   
-                    <Slide 
-                        key={this.state.currentIndex}
-                        image={this.state.images[this.state.currentIndex]}
-                     />
-                </div>
-
-                <RightArrow
-                    goToNextSlide={this.goToNextSlide}
-                />
-            </div>
-        );
-    }
+   
 
     handleEditSubmit = e =>{
         e.preventDefault();
@@ -269,30 +284,107 @@ class Work extends React.Component{
         }
     }
 
+
+    companyClicked = id =>{
+        // get the list of companies and their color status
+        let {compClicked} = this.state;
+        // get the previous index
+        const prevIndex = this.state.currentIndex;
+        // change the previous index to false
+        compClicked[prevIndex] = false;
+        // change the clicked on index to true displaying the color
+        compClicked[id] = true;
+        this.setState({
+            compClicked: compClicked,
+            currentIndex: id
+        })
+
+    }
+
+    // renders slide with testimony and person who made the statement
+    renderSlider(){
+        const index = this.state.currentIndex ? this.state.currentIndex : 0;
+        const testimony = this.state ? this.state.testimony[index] : 'It is great';
+        const person = this.state ? this.state.person[index] : 'Karen'
+        return (
+          <div className="work-slide">
+            <Slide
+              goToPrevSlide={this.goToPrevSlide}
+              goToNextSlide={this.goToNextSlide}
+              key={this.state.currentIndex}
+              image={this.state.images[this.state.currentIndex]}
+            />
+            {/* render the testimony and person who made it */}
+            <p>{testimony}</p>
+            <p>- {person}</p>
+          </div>
+        );
+    }
+
+    // render the full list of companies
+    renderCompanies(){
+        
+        if(this.state.company.length > 0){
+            const companies = this.state.company;
+            const compClicked = this.state.compClicked;
+    
+            return (
+              <div className="company-list-container">
+                <ul className="company-list">
+                  {companies.map((company, index) => (
+                    <li
+                      key={index ** 3}
+                      className={`${compClicked[index] ? 'orange' : 'black'}`}
+                      onClick={e => this.companyClicked(index)}
+                    >
+                      {company}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+        }else{
+            return null;
+        }
+    }
+
     // render the company and review from the company. 
     // this renders underneath the slide
     renderData(){
-
-        let data = this.state.data;
-        let index = this.state.currentIndex;
-        // because of the double render make sure to 
-        // include this or it will break.
-        // we have to make sure the mapping of the data happened first
-        if(data[this.state.currentIndex] !== undefined){
-            return(
-                <div className="work-data">
-                    <p>Company: {data[index].company}</p>
-                    <p>Review: {data[index].review}</p>
-                    {this.renderOptions()}
-                </div>
-            );
-        }else{
-            return(
-                <div className="work-data">
-                    <p className="red">Something went wrong.</p>
-                </div>
-            );
-        }
+        const index = this.state.currentIndex;
+        const scope = this.state.scope[index];
+        const bottomLine = this.state.bottomLine[index];
+        const visit = this.state.link[index];
+        const logo = this.state.logo[index];
+        const company = this.state.company[index];
+        const imgStyle = {
+          backgroundImage: `url(${logo})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "50% 60%"
+        };
+        return (
+          <div className="work-data">
+            <div className="work-entry">
+              <h1>Scope</h1>
+              <div className="orange-bar"></div>
+              <p>{scope}</p>
+            </div>
+            <div className="work-entry">
+              <h1>Bottom Line</h1>
+              <div className="orange-bar"></div>
+              <p>{bottomLine}</p>
+            </div>
+            <div className="work-entry">
+              <h1>Go Check Em Out</h1>
+              <div className='orange-bar'></div>
+              <p>Click the link to visit their site</p>
+              <a href={visit}>
+                  <div className="logo-link" style={imgStyle} title={`logo for ${company}`}></div>
+              </a>
+            </div>
+          </div>
+        );
     }
 
 
@@ -300,7 +392,8 @@ class Work extends React.Component{
         const {images, data, currentIndex} = this.state;
         return(
             <div className="work">
-                {this.slider()}
+                {this.renderSlider()}
+                {this.renderCompanies()}
                 {this.renderData()}
                 {/* for editing this component */}
                 {this.state.editWork

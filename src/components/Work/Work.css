@@ -1,39 +1,13 @@
 .work{
-    background: #6ECDDD;
+   
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 92vh;
+    
 }
 
-.work-img{
-    width: 50%;
-	height: 40%;
-	background-size: cover;
-  	background-position: 50% 50%;
-}
-
-.slider{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 70vw;
-    margin: 0 auto;
-    height: 51vh;
-    text-align: center;
-    justify-content: center;
-    margin-top: 27vh;
-}
-
-.slider-wrapper{
-    width: 20em;
-    height: 10em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 .slide{
     width: 54vw;
@@ -44,11 +18,51 @@
     width: 70vw;
 }
 
+.company-list-container{
+    width: 100%;
+}
+
+.company-list{
+    list-style: none;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.company-list li{
+    cursor: pointer;
+}
+
+.work-data{
+    width: 100%;
+    border-top: 3px solid rgb(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.work-entry{
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.work-entry h1{
+    font-size: 1.2em;
+}
+
 .edit-btn{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     margin-bottom: 2em;
+}
+
+.orange{
+    color: #F47D46;
 }
 
 .hidden {

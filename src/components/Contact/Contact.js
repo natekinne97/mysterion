@@ -9,29 +9,61 @@ import './Contact.css';
 class Contact extends React.Component{
 
     render(){
-        return(
-            <div className="contact-us">
-                <h1>Collaborate With Us</h1>
-                
-                <form className="contact-form">
-                    <input type="text" name="organization" placeholder='Company/Organization'/>
-                    <div className='split-input-container'>
-                        <div className="split-input">
-                            <input type="text" name="full_name" placeholder='Full Name'/>
-                            <input type="phone" name='phone' placeholder='Phone #'/>
-                        </div>
-                        <div className='split-input'>
-                            <input type="email" name='email' placeholder='Email'/>
-                            <input type='text' name='location' placeholder='Location'/>
-                        </div>
-                    </div>
-                    <input type='text' name='subject' placeholder='Subject'/>
-                    <textarea name='message' placeholder='Tell us about your project, scope and budget'>
+        return (
+          <div className="contact-us">
+            <h1>Collaborate With Us</h1>
 
-                    </textarea>
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
+            <form className="contact-form">
+              <input
+                type="text"
+                name="organization"
+                placeholder="Company/Organization"
+                required
+              />
+              <div className="split-input-container">
+                <div className="split-input">
+                  <input
+                    type="text"
+                    name="full_name"
+                    placeholder="Full Name"
+                    required
+                  />
+                  <input
+                    type="phone"
+                    name="phone"
+                    placeholder="Phone #"
+                    required
+                  />
+                </div>
+                <div className="split-input">
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    required
+                  />
+                  <input
+                    type="text"
+                    name="location"
+                    placeholder="Location"
+                    required
+                  />
+                </div>
+              </div>
+              <input
+                type="text"
+                name="subject"
+                placeholder="Subject"
+                required
+              />
+              <textarea
+                name="message"
+                placeholder="Tell us about your project, scope and budget"
+                required
+              ></textarea>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
         );
     }
 }
