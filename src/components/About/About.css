@@ -1,41 +1,28 @@
 .about{
-    background: #6ECDDD;
-    height: 95vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
+    padding: .3em;
+    text-align: left;
 }
 
-.company-about{
+.members{
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    margin-top: 27vh;
-    justify-content: space-around;
-    width: 100%;
+    justify-content: space-evenly;
 }
 
-.icon{
-    font-size: 4em;
-}
-
-.company-logo{
+.member{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    width: 25vw;
 }
 
-.about-info{
-    width: 77vh;
+.blake{
+    width: 25vw;
+    height: 27vh;
+    background: #E2D7C9;
 }
 
-.person{
-    padding: .5em;
-}
-
-.personal-info{
-    display: flex;
-    flex-direction: row;
+.caleb{
+    width: 25vw;
+    height: 27vh;
+    background: #C7B299;
 }

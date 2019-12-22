@@ -22,9 +22,19 @@ class Footer extends React.Component{
               <h4>Mysterion</h4>
             </div>
 
+           
+
             {/* important links */}
             <div className="links">
               <div className="list-links">
+                <form className="new-letter-form">
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Subscribe to our news letter."
+                  />
+                  <button type="submit">Sign Up</button>
+                </form>
                 <ul>
                   <li>
                     <Link to="/contact">Contact</Link>
@@ -39,17 +49,11 @@ class Footer extends React.Component{
               </div>
               <Link to="/shop">Shop</Link>
             </div>
+           
 
             {/* news letter and email */}
             <div className="new-letter">
-              <form className="new-letter-form">
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Subscribe to our news letter."
-                />
-                <button className="red" type="submit">Sign Up</button>
-              </form>
+             
               <a href="meilto:mysterion@gmail.com">mysterion@gmail.com</a>
             </div>
           </div>

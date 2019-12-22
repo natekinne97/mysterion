@@ -1,55 +1,91 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-
 import itemContext from '../../context/itemContext';
 import './Menu.css';
 
 class Menu extends React.Component{
     static contextType = itemContext;
     state={
-        show: 'hide'
+        show: 'hide',
+        visible: false
     }
 
     mobileShow = ()=>{
+        
+        
         if(this.state.show === 'hide'){
             this.setState({
-                show: ''
+                show: '',
+                visible: true
             })
         }else{
             this.setState({
-                show: 'hide'
+                show: 'hide',
+                visible: false
             })
         }
     }
 
+    // renders desktop components
     renderMenuComponents(){
         return(
-            <>
-                <div className={`bottom-menu ${this.state.show}`}>
-                    <Link to="/">Home</Link>
-                    <ul>
-                        <li><Link to="/work">Work</Link></li>
-                        <li><Link to="/about">About</Link></li>
-                        <li><Link to="/contact">Contact</Link></li>
-                    </ul>
-                    <Link to="/shop">Shop</Link>
+            <div className="desktop-menu-container">
+                <header>Mysterion</header>
+                <ul className="desktop-menu-items">
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/work" onClick={this.mobileShow}>Work</Link></li>
+                    <li><Link to="/about" onClick={this.mobileShow}>About</Link></li>
+                    <li><Link to="/contact" onClick={this.mobileShow}>Contact</Link></li>
+                    <li><Link to="/shop" onClick={this.mobileShow}>Shop</Link></li>
+                    
+                </ul>
+                <div className="cart-corner">
+                    <p>1-800-MYSTERION</p>
+                    <Link to="/cart"> Cart(
+                                <span>{this.context.numberOfItems}</span>
+                                 )
+                     </Link>
                 </div>
-            </>
+            </div>
         );
+    }
+
+    mobileMenu(){
+        const visible = this.state.visible;
+        return(
+            <div className="mobile">
+                <div
+                    className={`menu-item-container ${visible ? 'slide-in' : 'slide-out'}`}>
+                    <ul className={`mobile-menu-items
+                     ${this.state.show} `}>
+                        <li><Link to="/" onClick={this.mobileShow}>Home</Link></li>
+                        <li><Link to="/work" onClick={this.mobileShow}>Work</Link></li>
+                        <li><Link to="/about" onClick={this.mobileShow}>About</Link></li>
+                        <li><Link to="/contact" onClick={this.mobileShow}>Contact</Link></li>
+                        <li><Link to="/shop" onClick={this.mobileShow}>Shop</Link></li>
+                        <li>
+                            <Link to="/cart" onClick={this.mobileShow}>Cart(
+                                <span>{this.context.numberOfItems}</span>
+                            )
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
+                <div className='menu-btn-container' onClick={this.mobileShow}>
+                    <button >MENU</button>
+                    <div className="bar"></div>
+                </div>
+            </div>
+        )
     }
 
     render(){
         return(
             <div className="menu">
-                <div className="top-menu">
-                    <header>Mysterion</header>
-                    <Link to="/cart">Cart(<span>{this.context.numberOfItems}</span>)</Link>
-                    <FontAwesomeIcon onClick={this.mobileShow} className="burger-menu" icon={faBars} />
-                </div>
-               {this.renderMenuComponents()}
+                {this.mobileMenu()}
+                {this.renderMenuComponents()}
+               {/* {this.renderMenuComponents()} */}
             </div>
         );
     }

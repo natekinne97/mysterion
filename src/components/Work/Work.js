@@ -1,8 +1,8 @@
 import React from 'react';
 import roundSTORE from '../../STORE';
-import Slide from './Slide'
-import LeftArrow from './LeftArrow'
-import RightArrow from './RightArrow'
+import Slide from '../Slider/Slide'
+import LeftArrow from '../Slider/LeftArrow'
+import RightArrow from '../Slider/RightArrow'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faTrash, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
@@ -129,7 +129,6 @@ class Work extends React.Component{
                    
                     <Slide 
                         key={this.state.currentIndex}
-                        data={this.state.data[this.state.currentIndex]} 
                         image={this.state.images[this.state.currentIndex]}
                      />
                 </div>

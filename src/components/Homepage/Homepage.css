@@ -1,98 +1,78 @@
 /* 
+full page
+
+*/
+.homepage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/* 
 
 collaboration section
 
 */
-.collabs{
-    text-align: center;
-    background: #6ECDDD;
-    height: 52vh;
+.homepage-slide{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-evenly;
     align-items: center;
 }
 
-.collabs h2{
-    margin-bottom: 0;
-    color: white;
+.slide{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 98vw;
+    height: 80vh;
 }
 
-.collabs h2:last-child{
-    margin-top: 0;
+.nextArrow{
+    font-size: 3em;
+    color: #F47D46;
+    cursor: pointer;
 }
-/* bottom text in section */
-.bottom-text{
-    margin-top: 4em;
-    margin-bottom: 0;
+
+.backArrow{
+    font-size: 3em;
+    color: #F47D46;
+    cursor: pointer;
 }
 /* 
-Statement section wholefoods
+all entries
 */
-.statement{
+.entry{
     text-align: center;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
-.statement p{
-   width: 60vh;
-   font-size: 1.2em;
+.entry h1{
+    color: #F27451;
 }
 
-/* 
-Review section
-*/
-.review{
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.orange-bar{
+    width: 8em;
+    height: .2em;
+    background: #F27451;
 
-    background: url('https://i.imgur.com/z1MRtd4.jpg') no-repeat;
-    background-size: 100%;
-    height: 50vh;
-    color: white;
 }
 
-.first-h{
-    margin-top: 20vh;
-    margin-bottom: 0;
-}
-
-/* intrigue message */
-.intrig{
-    background: #F05A38;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.intrig-content{
-    text-align: center;
-    width: 50vh;
-    color: white;
-}
-
-/* lets talk */
-.talk{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.logo-link{
+    height: 20vh;
+    width: 20vw;
+    margin-bottom: 2em;
 }
 
 
-.btn-red{
-    background: #F15938;
-    color: white;
-    width: 38vh;
-    height: 5vh;
-    text-align: center;
-    font-size: 1.1em;
-    font-weight: 600;
-}
+
+
+
 @media screen and (min-width: 1024px){
-    .collabs{
-        height: 35vh;
+    .entry{
+        width: 50vw;
     }
 }

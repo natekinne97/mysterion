@@ -11,18 +11,25 @@ class Contact extends React.Component{
     render(){
         return(
             <div className="contact-us">
-                <h1>Ask us a question</h1>
-                <p>Want us to consult for you or do you have any questions?</p>
+                <h1>Collaborate With Us</h1>
+                
                 <form className="contact-form">
-                    <label htmlFor="name">Name</label>
-                    <input type="text" name="name" placeholder="name"/>
-                    <label htmlFor="email">Email</label>
-                    <input type="email" name="email" placeholder="Personal email"/>
-                    <label htmlFor="subject">Subject</label>
-                    <input type="text" name="subject" placeholder="Reason for contact"/>
-                    <label htmlFor="message">Message</label>
-                    <textarea name="message"></textarea>
-                    <button type="submit">Send</button>
+                    <input type="text" name="organization" placeholder='Company/Organization'/>
+                    <div className='split-input-container'>
+                        <div className="split-input">
+                            <input type="text" name="full_name" placeholder='Full Name'/>
+                            <input type="phone" name='phone' placeholder='Phone #'/>
+                        </div>
+                        <div className='split-input'>
+                            <input type="email" name='email' placeholder='Email'/>
+                            <input type='text' name='location' placeholder='Location'/>
+                        </div>
+                    </div>
+                    <input type='text' name='subject' placeholder='Subject'/>
+                    <textarea name='message' placeholder='Tell us about your project, scope and budget'>
+
+                    </textarea>
+                    <button type="submit">Submit</button>
                 </form>
             </div>
         );
