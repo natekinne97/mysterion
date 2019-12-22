@@ -1,8 +1,7 @@
 import React from 'react';
 import roundSTORE from '../../STORE';
 import Slide from '../Slider/Slide'
-import LeftArrow from '../Slider/LeftArrow'
-import RightArrow from '../Slider/RightArrow'
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faTrash, faPlusSquare } from '@fortawesome/free-solid-svg-icons';

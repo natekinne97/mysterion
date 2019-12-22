@@ -23,7 +23,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "now --prod ./build",
+    "deploy": "now --name mysterion-app",
     "kill": " sudo kill -9 `sudo lsof -t -i:3000`"
   },
   "eslintConfig": {

@@ -36,9 +36,9 @@ class ShoppingPage extends React.Component{
     }
 
     // get all things on load
-    componentDidMount(){
-        this.getAllItems();
-    }
+    // componentDidMount(){
+    //     this.getAllItems();
+    // }
 
     // display the options
     renderOptions = id => {
@@ -165,11 +165,64 @@ class ShoppingPage extends React.Component{
         return (<p className="red">Something went wrong!</p>);
     }
 
+    renderConstructionSign(){
+        return (
+          <div className="fake-stuff">
+            <div className="dept">
+              <p>Fonts</p>
+              <p>Mockups</p>
+              <p>Apparel</p>
+            </div>
+            <div className="fake-item-container">
+              {this.renderFakeImages()}
+              <div className="orange-div">
+                <h1>Coming this winte</h1>
+                <form>
+                    <input type='email' placeholder="Subscribe to our news letter" required/>
+                    <button className='red-btn'>Subscribe</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        );
+    }
+
+    // Here we are rendering a blank page that displays the construction sign
+    renderFakeImages(){
+        const img = [
+          "https://i.imgur.com/VloosOE.jpg",
+          "https://i.imgur.com/VloosOE.jpg",
+          "https://i.imgur.com/VloosOE.jpg",
+          "https://i.imgur.com/VloosOE.jpg",
+          "https://i.imgur.com/VloosOE.jpg",
+          "https://i.imgur.com/VloosOE.jpg"
+        ];
+
+        return img.map((item, index) => (
+          <div key={index ** 4} className="fake-item shopping-item">
+            <div
+              className="item-img"
+              style={{
+                backgroundImage: `url(${item})`,
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "50% 60%"
+              }}
+            ></div>
+            <p>T-Shirt</p>
+            <p>$15</p>
+          </div>
+        ));
+
+    }
+
 
     render(){
         return (
             <div className="shopping-page">
                 <div className={`shopping-container ${this.props.edit ? 'edit' : ''}`}>
+                    
+                    {this.renderConstructionSign()}
                     {/* displays title on page */}
                     {this.props.edit ? 
                     <h1>Edit and add product</h1>
@@ -185,9 +238,9 @@ class ShoppingPage extends React.Component{
                     
 
                      {/* displays content depending on if being edited */}
-                    {this.props.edit ? 
+                    {/* {this.props.edit ? 
                     this.renderItemsForEdit() 
-                    : this.renderItems()}
+                    : this.renderItems()} */}
 
 
                 </div>
