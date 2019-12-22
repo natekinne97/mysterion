@@ -216,7 +216,7 @@ class App extends React.Component {
 
           <Route 
             path="/cart"
-            component={Cart}
+            component={ShoppingPage}
           />
 
             {/* {render the contact page} */}
