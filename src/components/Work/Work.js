@@ -22,7 +22,8 @@ import AddWork from '../../adminComponents/AddWork/Addwork';
 class Work extends React.Component{
     // this will be removed when we get the backend put together
     static defaultProps = {
-        edit: false
+        edit: false,
+        highlights: false
     }
     constructor(props){
         super(props);
@@ -186,54 +187,97 @@ class Work extends React.Component{
     handleEditSubmit = e =>{
         e.preventDefault();
         // get the value
-        const {image, company, review} = e.target;
-        // get the state data
-        let data = this.state.data;
-        let img = this.state.images;
-        let index = this.state.currentIndex;
-        // update the image
-        img[index] = image.value;
-        // update the data
-        data[index] = {
-            company: company.value,
-            review: review.value
+        let formData = {  
+          images: e.target.image.value,
+          company: e.target.company.value,
+          testimony: e.target.testimony.value,
+          person: e.target.person.value,
+          scope: e.target.scope.value,
+          bottomLine: e.target.bottomline.value,
+          logo: e.target.logo.value,
+          link: e.target.link.value,
         }
+
+        let stateObject = {
+          images: this.state.images,
+          company: this.state.company,
+          testimony: this.state.testimony,
+          person: this.state.person,
+          scope: this.state.scope,
+          bottomLine: this.state.bottomLine,
+          logo: this.state.logo,
+          link: this.state.link,
+        };
+        let index = this.state.currentIndex;
+
+        // here we call out highlight update or our work update
+        // based on the value
+        
+        stateObject.images[index] = formData.images;
+        stateObject.company[index] = formData.company;
+        stateObject.testimony[index] = formData.testimony;
+        stateObject.person[index] = formData.person;
+        stateObject.scope[index] = formData.scope;
+        stateObject.bottomLine[index] = formData.scope;
+        stateObject.logo[index] = formData.logo;
+        stateObject.link[index] = formData.link;
+
+
+        
+
         // change the state
         this.setState({
-            images: img,
-            data: data,
-            editWork: false
+            ...stateObject
         })
-        // empty the inputs
-        image.value = '';
-        company.value = '';
-        review.value = '';
+       
 
     }
 
     // handles the adding the 
     handleAddSubmit = e =>{
         e.preventDefault();
-        // get the value
-        const { image, company, review } = e.target;
-        // get the state data
-        let data = this.state.data;
-        let img = this.state.images;
-
-        // put target data into proper objects
-        let dataObject = {
-            company: company.value,
-            review: review.value
+        
+        let formData = {  
+          images: e.target.image.value,
+          company: e.target.company.value,
+          testimony: e.target.testimony.value,
+          person: e.target.person.value,
+          scope: e.target.scope.value,
+          bottomLine: e.target.bottomline.value,
+          logo: e.target.logo.value,
+          link: e.target.link.value,
         }
 
-        // push the objects in to the correct array
-        data.push(dataObject);
-        img.push(image.value);
 
+        // here we call our insert but the inert depends on 
+        // what area the update is going to
+
+
+        let stateObject = {
+          images: this.state.images,
+          company: this.state.company,
+          testimony: this.state.testimony,
+          person: this.state.person,
+          scope: this.state.scope,
+          bottomLine: this.state.bottomLine,
+          logo: this.state.logo,
+          link: this.state.link,
+        };
+        // insert the new project in to the state
+        for(const key of Object.keys(stateObject)){
+            stateObject[key].push(formData[key]);
+            console.log(stateObject[key], 'keys')
+        }
+        // change the currently highlighted image
+        let compClicked = this.state.compClicked;
+        compClicked[this.state.currentIndex] = false;
+        compClicked[stateObject.images.length -1] = true;
+      
         // insert into the state and then 
         this.setState({
-            images: img,
-            data: data,
+            ...stateObject,
+            currentIndex: stateObject.images.length -1,
+            compClicked: compClicked,
             addWork: false
         })
 
@@ -241,23 +285,58 @@ class Work extends React.Component{
 
     // delete a portfolio project
     removeEntry = ()=>{
-        let {images, data, currentIndex} = this.state;
+        /**
+         * 
+         * images: [],
+            company: [],
+            testimony: [],
+            person: [],
+            scope: [],
+            bottomLine: [],
+            logo: [],
+            link: [],
+            index: [],
+            compClicked: [],
+         */
+        let {images, company, testimony, person, scope, bottomLine,
+            logo, link, compClicked, currentIndex} = this.state;
         // remove image
-        let dataArr = [];
+        let companyArr = [];
         let imgArr = [];
+        let testimonyArr = [];
+        let personArr = [];
+        let scopeArr = [];
+        let bottomLineArr = [];
+        let logoArr = [];
+        let linkArr = [];
+        let compClickedArr = [];
+        
         // filter the arrays to 
-        for(let i =0; i< data.length; i++){
+        for(let i =0; i< images.length; i++){
             if(i !== currentIndex){
-                dataArr.push(data[i]);
                 imgArr.push(images[i]);
+                companyArr.push(company[i]);
+                testimonyArr.push(testimony[i]);
+                personArr.push(person[i]);
+                scopeArr.push(scope[i]);
+                bottomLineArr.push(bottomLine[i]);
+                logoArr.push(logo[i]);
+                linkArr.push(link[i]);
+                compClickedArr.push(compClicked[i]);
             }
             
         }
-        console.log(dataArr, 'data after filet');
-        console.log(imgArr, 'images');
+        
         this.setState({
             images: imgArr,
-            data: dataArr
+            company: companyArr,
+            testimony: testimonyArr,
+            person: personArr,
+            scope: scopeArr,
+            bottomLine: bottomLineArr,
+            logo: logoArr,
+            link: linkArr,
+            compClicked: compClickedArr
         })
         // remove data
     }
@@ -339,6 +418,7 @@ class Work extends React.Component{
             <Slide
               goToPrevSlide={this.goToPrevSlide}
               goToNextSlide={this.goToNextSlide}
+              edit={this.props.edit}
               key={this.state.currentIndex}
               image={this.state.images[this.state.currentIndex]}
             />
@@ -415,31 +495,75 @@ class Work extends React.Component{
         );
     }
 
+    renderInstructions(){
+        if(this.props.edit && this.props.highlights){
+            return (
+              <div>
+                <h1>Edit or change Highlights</h1>
+                <p>
+                    Change highlights on the home page
+                    or make a new homepage highlight.
+                </p>
+              </div>
+            );
+        }else if(this.props.edit){
+            return (
+                <div>
+                    <h1>Work Page Edit</h1>
+                    <p>Add/Edit/Delete work projects</p>
+                </div>
+            );
+        }else{
+            return null;
+        }
+    }
+
 
     render(){
-        const {images, data, currentIndex} = this.state;
-        return(
-            <div className="work">
+        let {
+          images,
+          company,
+          testimony,
+          person,
+          scope,
+          bottomLine,
+          logo,
+          link,
+          currentIndex
+        } = this.state;
+        return (
+          <div className="work">
+            <div className={`${this.props.edit ? "edit-work" : ""}`}>
+                {this.renderInstructions()}
                 {this.renderSlider()}
                 {this.renderCompanies()}
                 {this.renderData()}
-                {/* for editing this component */}
-                {this.state.editWork
-                ? <EditForm
-                    data={data}
-                    images={images}
-                    currentIndex={currentIndex}
-                    handleFormSubmit={this.handleEditSubmit}
+                {/* render options */}
+                {this.props.edit ?
+                this.renderOptions()
+                  : null}
+                    {/* for editing this component */}
+                    {this.state.editWork ? (
+                    <EditForm
+                        images={images}
+                        company={company}
+                        testimony={testimony}
+                        person={person}
+                        scope={scope}
+                        bottomLine={bottomLine}
+                        logo={logo}
+                        link={link}
+                        currentIndex={currentIndex}
+                        handleFormSubmit={this.handleEditSubmit}
                     />
-                : null}
+                 ) : null}
 
-                {/* for adding to this component */}
-                {this.state.addWork
-                ? <AddWork
-                    handleFormSubmit={this.handleAddSubmit}
-                    />
-                : null}
+              {/* for adding to this component */}
+              {this.state.addWork ? (
+                <AddWork handleFormSubmit={this.handleAddSubmit} />
+              ) : null}
             </div>
+          </div>
         );
     }
 }

@@ -164,108 +164,67 @@ class App extends React.Component {
     return (
       <div>
         <nav>
-         {/* menu goes here */}
+          {/* menu goes here */}
           {this.renderRegularMenu()}
           {/* <Menu/> */}
-         {/* render the admin menu */}
-         {this.renderAdminMenu()}
-         {/* renders only on the admin side */}
+          {/* render the admin menu */}
+          {this.renderAdminMenu()}
+          {/* renders only on the admin side */}
         </nav>
         <main>
           <Switch>
-
             {/* the landing page */}
-            <Route
-              exact 
-              path="/landingpage"
-              component={LandingPage}
-            />
+            <Route exact path="/landingpage" component={LandingPage} />
 
-            <Route
-              path="/admin-stuff/landingpage"
-              component={EditLP}
-            />
+            <Route path="/admin-stuff/landingpage" component={EditLP} />
 
-           
             {/* homepage */}
             <Route exact path="/" component={Homepage} />
 
             {/* work page */}
-          <Route
-            exact
-            path="/work"
-            component={Work}
-          />
-          {/* for the sake of code reuse i am using the same elements for
+            <Route exact path="/work" component={Work} />
+            {/* for the sake of code reuse i am using the same elements for
           editing and deleting.
           this element takes a parameter for now that says edit and it is a
           boolean value 
           in the future it will be based on whether the component has an auth
           token.
           */}
-            <Route exact
-              path="/admin-stuff/work"
-            >
-              <Work edit={true}/>
-          </Route>
-           {/* render the about page */}
-           <Route
-            path="/about"
-            component={About}
-           />
+            <Route exact path="/admin-stuff/work">
+              <Work edit={true} />
+            </Route>
+            {/*  */}
+            <Route exact path="/admin-stuff/highlights">
+              <Work edit={true} highlights={true} />
+            </Route>
+            {/* render the about page */}
+            <Route path="/about" component={About} />
 
-          <Route 
-            path="/cart"
-            component={ShoppingPage}
-          />
+            <Route path="/cart" component={ShoppingPage} />
 
             {/* {render the contact page} */}
-            <Route 
-              path="/contact"
-              component={Contact}
-              />
+            <Route path="/contact" component={Contact} />
 
             {/* render item info */}
-            <Route
-              
-              path="/shop/:id"
-              component={ItemInfo}
-            />
+            <Route path="/shop/:id" component={ItemInfo} />
 
             <Route
               path="/admin-stuff/items/:id"
-              render={(props)=><ItemInfo {...props} edit={true} />}
-            />
-             
-            {/* render the shopping page */}
-            <Route
-              exact
-              path="/shop"
-             
-              component={ShoppingPage}
+              render={props => <ItemInfo {...props} edit={true} />}
             />
 
-            <Route
-              exact
-              path="/admin-stuff/items"
-              
-            >
-              <ShoppingPage edit={true}/>
+            {/* render the shopping page */}
+            <Route exact path="/shop" component={ShoppingPage} />
+
+            <Route exact path="/admin-stuff/items">
+              <ShoppingPage edit={true} />
             </Route>
 
-
             {/* renders the news letter page for creating and sending new letters */}
-            <Route
-              path="/admin-stuff/letters"
-              component={NewsLetter}
-            />
-
+            <Route path="/admin-stuff/letters" component={NewsLetter} />
 
             {/* login route */}
-            <Route
-              path="/admin-stuff/login"
-              component={LoginPage}
-            />
+            <Route path="/admin-stuff/login" component={LoginPage} />
             {/* signup */}
             {/* <Route
               path="/signup"
@@ -274,16 +233,12 @@ class App extends React.Component {
 
             {/* forgot password */}
             <Route
-              path='/admin-stuff/forgot-password'
+              path="/admin-stuff/forgot-password"
               component={ForgotPassword}
             />
             {/* reset password */}
-            <Route
-              path='/admin-stuff/reset/:token'
-              component={Reset}
-            />
+            <Route path="/admin-stuff/reset/:token" component={Reset} />
           </Switch>
-          
         </main>
         <footer>
           {/* render the footer */}

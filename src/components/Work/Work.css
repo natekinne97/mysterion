@@ -54,6 +54,11 @@
     font-size: 1.2em;
 }
 
+.edit-work{
+    width: 50vw;
+
+}
+
 .edit-btn{
     display: flex;
     flex-direction: row;
