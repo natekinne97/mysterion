@@ -70,6 +70,10 @@
     color: #F47D46;
 }
 
+.black{
+    color: black;
+}
+
 .hidden {
     display: none;
 }

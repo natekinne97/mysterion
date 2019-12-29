@@ -12,7 +12,7 @@ import itemContext from '../../context/itemContext';
 import Menu from '../Menu/Menu';
 import Footer from '../Footer/Footer';
 import Homepage from '../Homepage/Homepage';
-import Work from '../Work/Work';
+import {Work} from '../Work/Work';
 import Contact from '../Contact/Contact';
 import About from '../About/About';
 import LandingPage from '../LandingPage/LandingPage';

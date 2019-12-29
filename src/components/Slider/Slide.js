@@ -6,7 +6,7 @@ const Slide = (props) => {
     console.log(props.edit, 'edit');
     const styles = {
       backgroundImage: `url(${props.image})`,
-      backgroundSize: "cover",
+      backgroundSize: "contain",
       backgroundRepeat: "no-repeat",
       backgroundPosition: "50% 60%",
       width: props.edit ? "50vw" : "98vw",
