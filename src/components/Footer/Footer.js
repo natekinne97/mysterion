@@ -18,39 +18,54 @@ class Footer extends React.Component{
                 <FontAwesomeIcon icon={faTwitter} />
                 <FontAwesomeIcon icon={faInstagram} />
               </div>
-              <FontAwesomeIcon className="cloud-icon" icon={faCloud} />
-              <h4>Mysterion</h4>
+             <div className="rights-container">
+                <h4>Mysterion</h4>
+                <p className="rights-reserved">&copy; Mysterion LLC 2019 All Rights Reserved</p>
+             </div>
             </div>
 
-            {/* important links */}
-            <div className="links">
-              <div className="list-links">
-                <ul>
-                  <li>
-                    <Link to="/contact">Contact</Link>
-                  </li>
-                  <li>
-                    <Link to="/work">Work</Link>
-                  </li>
-                  <li>
-                    <Link to="/about">About</Link>
-                  </li>
-                </ul>
+            <div className="link-container">
+              <div className="link-column">
+                
+
+                <div className="list-row">
+                  <ul className="link-list">
+                    <li>
+                      <Link to="/home">Home</Link>
+                    </li>
+                    <li>
+                      <Link to="/contact">Contact</Link>
+                    </li>
+                    <li>
+                      <Link to="/work">Work</Link>
+                    </li>
+                    
+                  </ul>
+
+                  <ul className="link-list">
+                    <li>
+                      <Link to="/about">About</Link>
+                    </li>
+                    <li>
+                      <Link to="/shop">Shop</Link>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <Link to="/shop">Shop</Link>
             </div>
-
-            {/* news letter and email */}
-            <div className="new-letter">
-              <form className="new-letter-form">
+            <div className="rights">
+              <form className="news-letter-form">
                 <input
                   type="email"
-                  name="email"
-                  placeholder="Subscribe to our news letter."
+                  placeholder="Subscribe to our news letter"
+                  required
                 />
-                <button className="red" type="submit">Sign Up</button>
+                <button type="submit" className="red-btn">
+                  Sign Up
+                  </button>
               </form>
-              <a href="meilto:mysterion@gmail.com">mysterion@gmail.com</a>
+              <a href="mailto:mysterion@gmail.com">Mysterion@gmail.com</a>
+              
             </div>
           </div>
         );

@@ -1,11 +1,30 @@
+
+@font-face {
+font-family:"template-gothic";
+src:url("https://use.typekit.net/af/7a9348/00000000000000003b9add0c/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"),url("https://use.typekit.net/af/7a9348/00000000000000003b9add0c/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"),url("https://use.typekit.net/af/7a9348/00000000000000003b9add0c/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:400;
+}
+
 /* all general classes used throughout multiple components will go here */
 *{
+	font-family: template-gothic, sans-serif;
+
+font-weight: 400;
+
+font-style: normal;
+
+
+font-family: template-gothic, sans-serif;
+
+font-weight: 700;
+
+font-style: normal;
 	box-sizing: border-box;
-	font-family: sans-serif;
+	/* font-family: sans-serif; */
 }
 
 html, body{
-	width: 99%;
+	margin: 0;
 }
 
 /* gen form is for making the basic styling for all the forms. */

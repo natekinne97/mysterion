@@ -1,60 +1,132 @@
 .footer{
-    margin-top: 1em;
-    background: #9FA781;
     width: 100%;
     margin-top: 0;
     padding: .2em;
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 7em;
+    color: white;
+    background: #000000;
 }
 
 .business{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 25vh;
-    padding-top: .2em;
-}
-
-.cloud-icon{
-    margin-top: .4em;
-}
-
-.business h4{
-    margin-top: 0;
-}
-
-.links{
-    color: white;
-    display: flex;
     flex-direction: row;
     align-items: center;
+    width: 37vw;
+    justify-content: space-between;
+    padding-top: .2em;
+    height: 100%;
+}
+/* 
+
+for the media buttons
+*/
+.media{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
-    width: 50vh;
+    color: #E34834;
 }
 
-.links a{
-    color: white;
+
+/* displays the name, logo and rights */
+.rights-container{
+    display: none;
 }
 
-.list-links{
+.rights-container h4{
+    color: #E34834;
+}
+
+.rights{
+    display: none;
+}
+
+
+.link-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.link-column{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+
 }
 
-.list-links ul{
+.list-row{
+    display: flex;
+    flex-direction: row;
+    width: 12em;
+    justify-content: space-evenly;
+    
+}
+
+.link-list{
     list-style: none;
-}
-
-.news-letter{
+    padding: 0;
+    margin: 0;
+    height: 5em;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
-.red{
-    background: red;
+.link-list a{
     color: white;
+}
+
+.red-btn{
+    background: #E34834;
+    color: white;
+    border: none;
+    height: 2.3em;
+    font-weight: 900;
+}
+
+.rights{
+    display: none;
+}
+
+@media screen and (min-width: 1024px){
+    #email{
+        display: none;
+    }
+
+    .rights-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        
+    }
+
+    .rights{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 100%;
+    }
+
+    #mysterion-name{
+        font-family: monospace;
+        margin: 0;
+        font-size: 1.9em;
+    }
+
+    .rights a{
+        font-size: .7em;
+        color: white;
+    }
+
+    .rights-reserved{
+        font-size: .1em;
+    }
 }

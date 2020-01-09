@@ -7,13 +7,20 @@ import LoginPage from '../../routes/LoginPage'
 import CreatePage from '../../routes/CreatePage';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import Reset from '../Reset/Reset';
+import itemContext from '../../context/itemContext';
 // my components
 import Menu from '../Menu/Menu';
 import Footer from '../Footer/Footer';
 import Homepage from '../Homepage/Homepage';
-import Work from '../Work/Work';
+import {Work} from '../Work/Work';
 import Contact from '../Contact/Contact';
 import About from '../About/About';
+import LandingPage from '../LandingPage/LandingPage';
+
+// shopping
+import ShoppingPage from '../ShoppingPage/ShoppingPage';
+import ItemInfo from '../ItemInfo/ItemInfo';
+import Cart from '../Cart/Cart';
 // private route
 // import PrivateRoute from '../../routes/private';
 
@@ -22,8 +29,14 @@ import TokenService from '../../services/token-services'
 import authApi from '../../auth-service/auth-service'
 import IdleService from '../../services/idle-services';
 
+
+// admin side
+import AdminMenu from '../../adminComponents/AdminMenu/AdminMenu';
+import NewsLetter from '../../adminComponents/NewsLetters/NewsLetters';
+import EditLP from '../../adminComponents/EditLP/EditLP';
+
 class App extends React.Component {
-  
+  static contextType = itemContext;
   state = { hasError: false }
 
   static getDerivedStateFromError(error) {
@@ -93,62 +106,143 @@ class App extends React.Component {
     this.forceUpdate()
   }
 
+  renderAdminMenu(){
+    return (
+      <>
+        {['/admin-stuff', '/admin-stuff/work', '/admin-stuff/items',
+          '/admin-stuff/items/:id', '/admin-stuff/letters',
+          '/admin-stuff/landingpage', '/admin-stuff/highlights',
+          '/admin-stuff/stats'].map((path, index)=>(
+          <Route
+            key={index}
+            exact
+            path={path}
+            component={AdminMenu}
+          />
+        ))}
+      </>
+    );
+  }
+
+  renderRegularMenu(){
+    return(
+      <>
+        {['/', '/work', '/about', '/cart', '/contact', 
+        '/shop/:id', '/shop'].map((path, index)=>(
+          <Route
+            key={index**4}
+            exact
+            path={path}
+            component={Menu}
+          />
+        ))}
+      </>
+
+    );
+  }
+
+  renderFooter(){
+    return (
+      <>
+        {['/', '/work', '/about', '/cart', '/contact',
+          '/shop/:id', '/shop'].map((path, index) => (
+            <Route
+              key={index ** 3}
+              exact
+              path={path}
+              component={Footer}
+            />
+          ))}
+      </>
+
+    );
+  }
+
 
   render() {
     localStorage.lastUrl = window.location.pathname;
     return (
       <div>
         <nav>
-         {/* menu goes here */}
-         <Menu/>
+          {/* menu goes here */}
+          {this.renderRegularMenu()}
+          {/* <Menu/> */}
+          {/* render the admin menu */}
+          {this.renderAdminMenu()}
+          {/* renders only on the admin side */}
         </nav>
         <main>
           <Switch>
+            {/* the landing page */}
+            <Route exact path="/landingpage" component={LandingPage} />
+
+            <Route path="/admin-stuff/landingpage" component={EditLP} />
+
             {/* homepage */}
             <Route exact path="/" component={Homepage} />
 
             {/* work page */}
-          <Route
-            path="/work"
-            component={Work}
-          />
-           {/* render the about page */}
-           <Route
-            path="/about"
-            component={About}
-           />
+            <Route exact path="/work" component={Work} />
+            {/* for the sake of code reuse i am using the same elements for
+          editing and deleting.
+          this element takes a parameter for now that says edit and it is a
+          boolean value 
+          in the future it will be based on whether the component has an auth
+          token.
+          */}
+            <Route exact path="/admin-stuff/work">
+              <Work edit={true} />
+            </Route>
+            {/*  */}
+            <Route exact path="/admin-stuff/highlights">
+              <Work edit={true} highlights={true} />
+            </Route>
+            {/* render the about page */}
+            <Route path="/about" component={About} />
+
+            <Route path="/cart" component={ShoppingPage} />
 
             {/* {render the contact page} */}
-            <Route 
-              path="/contact"
-              component={Contact}
-              />
-            {/* login route */}
+            <Route path="/contact" component={Contact} />
+
+            {/* render item info */}
+            <Route path="/shop/:id" component={ItemInfo} />
+
             <Route
-              path="/login"
-              component={LoginPage}
+              path="/admin-stuff/items/:id"
+              render={props => <ItemInfo {...props} edit={true} />}
             />
+
+            {/* render the shopping page */}
+            <Route exact path="/shop" component={ShoppingPage} />
+
+            <Route exact path="/admin-stuff/items">
+              <ShoppingPage edit={true} />
+            </Route>
+
+            {/* renders the news letter page for creating and sending new letters */}
+            <Route path="/admin-stuff/letters" component={NewsLetter} />
+
+            {/* login route */}
+            <Route path="/admin-stuff/login" component={LoginPage} />
             {/* signup */}
-            <Route
+            {/* <Route
               path="/signup"
               component={CreatePage}
-            />
+            /> */}
 
             {/* forgot password */}
             <Route
-              path='/forgot-password'
+              path="/admin-stuff/forgot-password"
               component={ForgotPassword}
             />
             {/* reset password */}
-            <Route
-              path='/reset/:token'
-              component={Reset}
-            />
+            <Route path="/admin-stuff/reset/:token" component={Reset} />
           </Switch>
-          
         </main>
         <footer>
-          <Footer/>
+          {/* render the footer */}
+          {this.renderFooter()}
         </footer>
       </div>
     );

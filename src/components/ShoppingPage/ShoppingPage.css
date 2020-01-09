@@ -1,0 +1,81 @@
+.shopping-page{
+    
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+.dept{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 96vw;
+    margin-bottom: 2em;
+}
+
+.orange-div{
+    background: #F05A38;
+    width: 45vw;
+    position: relative;
+    color: white;
+    height: 42vh;
+    top: -14em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.fake-stuff{
+    width: 96vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fake-item-container{
+display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 60vw;
+}
+
+.shopping-container{
+   
+}
+
+.shopping-item{
+    border: 1px solid black;
+    margin: .1em;
+    width: 19vw;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 25vh;
+    padding: .3em;
+}
+
+.shopping-item p{
+    margin: 0;
+}
+
+.item-img{
+    width: 50%;
+    height: 50%
+}
+
+/* changes the size of the container  */
+.edit{
+    width: 20em;
+}
+
+/* edits the size of the item itself */
+.edit-item{
+    height: 34vh;
+}

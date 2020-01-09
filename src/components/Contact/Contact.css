@@ -1,23 +1,69 @@
 .contact-us{
-    background: #6ECDDD;
+    font-family: monospace;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 92vh;
-    
+    min-height: 92vh;
+    background-color: #E84A35;
 }
+
 
 .contact-form{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    align-content: center;
+    height: 23em;
     align-items: center;
-    border: 1px solid black;
-    padding: .5em;
+    margin-bottom: 2em;
 }
 
-.contact-form label{
-    margin-top: .3em;
-    margin-bottom: .1em;
+.regular-input{
+    font-size: 1em;
+    height: 2.3em;
+    width: 98vw;
+}
+
+.split{
+    font-size: 1em;
+    height: 2.3em;
+    width: 98vw;
+}
+
+.contact-form textarea{
+    height: 3em;
+}
+
+.contact-form button{
+    width: 32vw;
+    height: 6vh;
+    margin: 0 auto;
+    background: black;
+    color: white;
+    border-radius: 7px;
+    border: none;
+}
+
+.split-input-container input{
+    width: 12em;
+    margin: .2em;
+}
+
+@media screen and (min-width: 1024px){
+    .contact-form{
+        height: 57vh;
+        justify-content: space-evenly;
+    }
+
+    .split-input-container input{
+        width: 8.3em;
+        margin: .2em;
+    }
+
+    .regular-input{
+        width: 40vw;
+        height: 2em;
+    }
 }

@@ -1,0 +1,33 @@
+
+.newsletter{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.newsletter-container{
+    border: 1px solid black;
+    min-width: 40vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(0, 0, 0, 0.1);
+    color: black;
+    padding: 1em;
+}
+
+.newsletter-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#message{
+    height: 20em;
+    width: 20em;
+    margin-bottom: 1em;
+   
+}

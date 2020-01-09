@@ -1,0 +1,48 @@
+.cart-page{
+    background: #6ECDDD;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+.item-container{
+    width: 79vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    background: antiquewhite;
+    padding: 1em;
+}
+
+.item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 50vh;
+    border-bottom: 1px solid black;
+}
+
+.tiny-pic{
+    width: 8vh;
+    height: 8vh;
+}
+
+.remove{
+    color: red;
+    cursor: pointer;
+}
+
+.remove:hover{
+    text-decoration: underline;
+}
+
+.total{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 20vh;
+}
