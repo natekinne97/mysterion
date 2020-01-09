@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Slide from '../Slider/Slide';
 import FEATURE from '../../FeaturedStrore';
-
+import {RenderWorkData} from '../Work/Work';
 import './Homepage.css';
 
 // render homepage as well as get information
@@ -98,99 +98,49 @@ class Homepage extends React.Component{
         );
     }
 
-    // gets data from api
-    renderCollabIntro(){
-        return(
-            <div className="collabs">
-                <h2 className="bottom-text">Take a look at our latest</h2>
-                <h2>collaboration with Vitamin Water</h2>
-            </div>
-        );
-    } 
-
     // there will be a carousel here that displays work done for recent 
     // projects
 
     // get data from api
     renderStatement(){
-        const company = this.state.company ? this.state.company : 'company';
         const testimony = this.state.testimony ? this.state.testimony : 'testimony';
         const person = this.state.person ? this.state.person : 'person';
         return(
             <div className="entry">
-                <h1>{company}</h1>
-                <p>{testimony}</p>
+                <p>"{testimony}"</p>
                 <p>{person}</p>
             </div>
         );
     }
 
-    renderScope(){
-        const pack = this.state.package ? this.state.package : 'branding';
-
-        return (
-            <div className="pack entry">
-                <h1>Scope</h1>
-                <div className="orange-bar"></div>
-                <p>{pack}</p>
-            </div>
-        );
-    }
-
-    renderBottomLine(){
-        const bottom = this.state.bottomLine ? this.state.bottomLine : 'Our company has gotten so much more revenue.';
-        
+    renderCompanyStatement(){
         return(
-            <div className="entry">
-                <h1>Bottom Line</h1>
-                <div className="orange-bar" title="orange bar"></div>
-                <p>{bottom}</p>
+            <div className="company-motto-container">
+                <div className="company-motto">
+                    <h3>Take Action! Get Results!</h3>
+                    <p>
+                        We help ambitious organizations tell their story,
+                        illustrate their vision, and clarify their identity,
+                        by delivering solutions that entice movement and achieve results.
+                    </p>
+                </div>
             </div>
         );
     }
 
-    renderCheckEmOut(){
-        const logo = this.state.logo
-          ? this.state.logo
-          : "https://i.imgur.com/uc813km.jpg";
-        const link = this.state.link ? this.state.link : 'google.com';
-        const imgStyle = {
-          backgroundImage: `url(${logo})`,
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "50% 60%",
-        };
-        return(
-            <div className='entry'>
-                <h1>Go Check Em Out</h1>
-                <div className="orange-bar"></div>
-                <p>Click the logo to visit their site</p>
-                <a href={link}>
-                    <div className="logo-link" style={imgStyle}></div>
-                </a>
-            </div>
-        );
-    }
-
-   
-
-    renderTalk(){
-        return(
-            <div className="talk">
-                <h1>Let's talk!</h1>
-                <Link className="btn-red" to="/contact">Drop us a message</Link>
-            </div>
-        );
-    }
 
     render(){
+    //    index, scope, bottomLine, visit, logo, company
         return(
             <div className="homepage">
                 {this.renderSlide()}
-                {this.renderStatement()}
-                {this.renderScope()}
-                {this.renderBottomLine()}
-                {this.renderCheckEmOut()}
+                <h1>{this.state.company}</h1>
+                {RenderWorkData(this.state.currentIndex,
+                    this.state.package, this.state.bottomLine,
+                    this.state.link, this.state.logo, this.state.company, 'homepage')}
+               
+               {this.renderStatement()}
+                {this.renderCompanyStatement()}
             </div>
         );
     }

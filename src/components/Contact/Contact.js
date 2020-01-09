@@ -15,6 +15,7 @@ class Contact extends React.Component{
 
             <form className="contact-form">
               <input
+                className="regular-input"
                 type="text"
                 name="organization"
                 placeholder="Company/Organization"
@@ -23,12 +24,14 @@ class Contact extends React.Component{
               <div className="split-input-container">
                 <div className="split-input">
                   <input
+                    className="split"
                     type="text"
                     name="full_name"
                     placeholder="Full Name"
                     required
                   />
                   <input
+                    className="split"
                     type="phone"
                     name="phone"
                     placeholder="Phone #"
@@ -37,12 +40,14 @@ class Contact extends React.Component{
                 </div>
                 <div className="split-input">
                   <input
+                    className="split"
                     type="email"
                     name="email"
                     placeholder="Email"
                     required
                   />
                   <input
+                    className="split"
                     type="text"
                     name="location"
                     placeholder="Location"
@@ -51,12 +56,14 @@ class Contact extends React.Component{
                 </div>
               </div>
               <input
+                className="regular-input"
                 type="text"
                 name="subject"
                 placeholder="Subject"
                 required
               />
               <textarea
+                className="regular-input"
                 name="message"
                 placeholder="Tell us about your project, scope and budget"
                 required

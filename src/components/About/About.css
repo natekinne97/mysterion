@@ -5,14 +5,16 @@
 
 .members{
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .member{
     display: flex;
     flex-direction: column;
-    width: 25vw;
+    align-items: center;
+    justify-content: center;
 }
 
 .blake{
@@ -25,4 +27,29 @@
     width: 25vw;
     height: 27vh;
     background: #C7B299;
+}
+
+@media screen and (min-width: 768px){
+    .who-we-are{
+        width: 75vw;
+        margin-left: 2em;
+        padding-bottom: 2em;
+    }
+}
+
+@media screen and (min-width: 1024px){
+    .members{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+    .member{
+        display: flex;
+        flex-direction: column;
+        width: 25vw;
+        margin-bottom: 2em;
+    }
+
+    
 }

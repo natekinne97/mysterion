@@ -176,7 +176,7 @@ class ShoppingPage extends React.Component{
             <div className="fake-item-container">
               {this.renderFakeImages()}
               <div className="orange-div">
-                <h1>Coming this winte</h1>
+                <h1>Coming this winter</h1>
                 <form>
                     <input type='email' placeholder="Subscribe to our news letter" required/>
                     <button className='red-btn'>Subscribe</button>

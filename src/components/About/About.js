@@ -90,9 +90,9 @@ class About extends React.Component{
     render(){
         return(
             <div className="about">
-                {this.renderWhoWeAre()}
-                {this.renderTeamMembers()}
-                {this.renderMembers()}
+              {this.renderMembers()}
+              {this.renderWhoWeAre()}
+                
             </div>
         );
     }

@@ -23,6 +23,8 @@ import AddWork from '../../adminComponents/AddWork/Addwork';
 export  const Work = (props)=>{
   const [data, setData] = useState(null);
   const [index, setIndex] = useState(0);
+  const [showEditform, setEditForm] = useState(false);
+  const [showAddForm, setAddForm] = useState(false);
 
   useEffect(()=>{
     const allData = getData();
@@ -31,8 +33,6 @@ export  const Work = (props)=>{
 
   // go to previous slide
   const prevSlideNumber = (i, compClicked)=>{
-    console.log('changing slide')
-    console.log(index, 'index befor update');
     setData(prevData=>{
       return {
         ...prevData,
@@ -40,7 +40,7 @@ export  const Work = (props)=>{
       }
     });
     setIndex(i, 'index');
-    console.log(index, 'data after thing');
+  
   }
 
   // go to the next slide
@@ -69,12 +69,28 @@ export  const Work = (props)=>{
     });
 
   }
+
+  const RenderEditForm = (e)=>{
+    if(showEditform){
+      setEditForm(false);
+    }else{
+      setEditForm(true);
+    }
+  }
+
+  const RenderAddForm = (e) => {
+    if (showAddForm) {
+      setAddForm(false);
+    } else {
+      setAddForm(true);
+    }
+  }
   
   // only render if there is data
   if(data){
     return (
       <div className="work">
-        <div >
+        <div className={`${props.edit ? "edit-work" : ""}`}>
           {RenderSlider(Number(index), data.images, data.testimony,
            data.person, data.compClicked, prevSlideNumber, nextSlideNumber)}
 
@@ -82,16 +98,42 @@ export  const Work = (props)=>{
 
           {RenderWorkData(Number(index), data.scope, data.bottomLine, 
           data.link, data.logo, data.company)}
+
+
+          {props.edit ?
+            <RenderOptions
+              renderEditform={e => { RenderEditForm() }}
+              renderAddForm={RenderAddForm}
+            />
+            : null}
+
+          {showEditform ?
+            <EditForm
+              data={data}
+              currentIndex={index}
+              handleFormSubmit={e => {
+                e.preventDefault();
+                setEditForm(false);
+              }}
+            />
+          : null}
+
+          {showAddForm ?
+          <AddWork/>
+          : null}
+
+
+
         </div>
       </div>
     );
 
   }else{
-    return <h1>fuck my life</h1>
+    return null
   }
   // className={`${props.edit ? "edit-work" : ""}`}
 
-}
+};
 
 // gets all the data for the component
 // will be modified for reuse when api is finished
@@ -163,35 +205,43 @@ const getData = ()=>{
 // this class displays all the work data for the given company
 // based on the index. the index is passed in and 
 // so are the rest of the data storing arrays
-export const RenderWorkData = (index, scope, bottomLine, visit, logo, company)=>{
+export const RenderWorkData = (index, scope, bottomLine, visit, logo, company, home=null)=>{
+  console.log(scope, 'scope');
+  console.log(bottomLine, 'bottomline');
+  console.log(visit, 'visit');
+  console.log(logo, 'logo');
+  console.log(company, 'company')
   const imgStyle = {
-    backgroundImage: `url(${(logo[index])})`,
+    backgroundImage: `url(${home ? logo :logo[index]})`,
     backgroundSize: "contain",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "50% 60%"
   };
-  console.log(visit);
+  console.log(bottomLine, 'bottom line');
   // return <h1>fuck</h1>
   return (
     <div className="work-data">
       <div className="work-entry">
         <h1>Scope</h1>
         <div className="orange-bar"></div>
-        <p>{scope[index]}</p>
+        <p>{home ? scope : scope[index]}</p>
       </div>
-      <div className="work-entry">
-        <h1>Bottom Line</h1>
-        <div className="orange-bar"></div>
-        <p>{bottomLine[index]}</p>
-      </div>
+    {/* go check em out */}
       <div className="work-entry">
         <h1>Go Check Em Out</h1>
         <div className='orange-bar'></div>
         <p>Click the link to visit their site</p>
-        <a href={visit[index]}>
-          <div className="logo-link" style={imgStyle} title={`logo for ${company[index]}`}></div>
+        <a href={home ? visit : visit[index]}>
+          <div className="logo-link" style={imgStyle} title={`logo for ${home ? company :company[index]}`}></div>
         </a>
       </div>
+      {/* bottom line */}
+      <div className="work-entry">
+        <h1>Bottom Line</h1>
+        <div className="orange-bar"></div>
+        <p>{home ? bottomLine : bottomLine[index]}</p>
+      </div>
+
     </div>
   );
 }
@@ -284,59 +334,34 @@ export const renderCompanies = (index, company, compClicked, companyClicked)=>{
   );
 }
 
-        
+export const handleEditSubmit = e =>{
+  let formData = {
+    images: e.target.image.value,
+    company: e.target.company.value,
+    testimony: e.target.testimony.value,
+    person: e.target.person.value,
+    scope: e.target.scope.value,
+    bottomLine: e.target.bottomline.value,
+    logo: e.target.logo.value,
+    link: e.target.link.value,
+  }
 
+  return formData;
+}       
 
-   
-   
-//     handleEditSubmit = e =>{
-//         e.preventDefault();
-//         // get the value
-//         let formData = {  
-//           images: e.target.image.value,
-//           company: e.target.company.value,
-//           testimony: e.target.testimony.value,
-//           person: e.target.person.value,
-//           scope: e.target.scope.value,
-//           bottomLine: e.target.bottomline.value,
-//           logo: e.target.logo.value,
-//           link: e.target.link.value,
-//         }
+export const RenderOptions = (props)=>{
+  return (
+    <div className="edit-btn">
+      {/* add button */}
+      <FontAwesomeIcon icon={faPlusSquare} onClick={props.renderAddForm} />
+      {/* edit button */}
+      <FontAwesomeIcon icon={faPencilAlt} onClick={props.renderEditform} />
+      {/* remove button */}
+      <FontAwesomeIcon icon={faTrash} onClick={props.removeEntry} />
+    </div>
+  );
+}
 
-//         let stateObject = {
-//           images: this.state.images,
-//           company: this.state.company,
-//           testimony: this.state.testimony,
-//           person: this.state.person,
-//           scope: this.state.scope,
-//           bottomLine: this.state.bottomLine,
-//           logo: this.state.logo,
-//           link: this.state.link,
-//         };
-//         let index = this.state.currentIndex;
-
-//         // here we call out highlight update or our work update
-//         // based on the value
-        
-//         stateObject.images[index] = formData.images;
-//         stateObject.company[index] = formData.company;
-//         stateObject.testimony[index] = formData.testimony;
-//         stateObject.person[index] = formData.person;
-//         stateObject.scope[index] = formData.scope;
-//         stateObject.bottomLine[index] = formData.scope;
-//         stateObject.logo[index] = formData.logo;
-//         stateObject.link[index] = formData.link;
-
-
-        
-
-//         // change the state
-//         this.setState({
-//             ...stateObject
-//         })
-       
-
-//     }
 
 //     // handles the adding the 
 //     handleAddSubmit = e =>{
@@ -480,57 +505,12 @@ export const renderCompanies = (index, company, compClicked, companyClicked)=>{
 //     // options are 
 //     // add, edit, remove
 //     renderOptions(){
-//         if(this.props.edit){
-//             return(
-//                 <div className="edit-btn">
-//                     {/* add button */}
-//                     <FontAwesomeIcon icon={faPlusSquare} onClick={this.renderAddForm}/>
-//                     {/* edit button */}
-//                     <FontAwesomeIcon icon={faPencilAlt} onClick={this.renderEditFrom}/>
-//                     {/* remove button */}
-//                     <FontAwesomeIcon icon={faTrash} onClick={this.removeEntry}/>
-//                 </div>  
-//             );
+        // if(this.props.edit){
 //         }else{
 //             return null;
 //         }
 //     }
 
-
-
-
-//     // renders slide with testimony and person who made the statement
-//     renderSlider(){
-//         const index = this.state.currentIndex ? this.state.currentIndex : 0;
-//         const testimony = this.state ? this.state.testimony[index] : 'It is great';
-//         const person = this.state ? this.state.person[index] : 'Karen'
-        // return (
-        //   <div className="work-slide">
-        //     <Slide
-        //       goToPrevSlide={this.goToPrevSlide}
-        //       goToNextSlide={this.goToNextSlide}
-        //       edit={this.props.edit}
-        //       key={this.state.currentIndex}
-        //       image={this.state.images[this.state.currentIndex]}
-        //     />
-        //     {/* render the testimony and person who made it */}
-        //     <p>{testimony}</p>
-        //     <p>- {person}</p>
-        //   </div>
-        // );
-//     }
-
-//     // render the full list of companies
-//     renderCompanies(){
-        
-//         if(this.state.company.length > 0){
-//             const companies = this.state.company;
-//             const compClicked = this.state.compClicked;
-
-//         }else{
-//             return null;
-//         }
-//     }
 
 
 //     renderInstructions(){
@@ -582,18 +562,7 @@ export const renderCompanies = (index, company, compClicked, companyClicked)=>{
 //                   : null}
 //                     {/* for editing this component */}
 //                     {this.state.editWork ? (
-//                     <EditForm
-//                         images={images}
-//                         company={company}
-//                         testimony={testimony}
-//                         person={person}
-//                         scope={scope}
-//                         bottomLine={bottomLine}
-//                         logo={logo}
-//                         link={link}
-//                         currentIndex={currentIndex}
-//                         handleFormSubmit={this.handleEditSubmit}
-//                     />
+
 //                  ) : null}
 
 //               {/* for adding to this component */}

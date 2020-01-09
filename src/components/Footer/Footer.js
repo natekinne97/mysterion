@@ -18,43 +18,34 @@ class Footer extends React.Component{
                 <FontAwesomeIcon icon={faTwitter} />
                 <FontAwesomeIcon icon={faInstagram} />
               </div>
-              <FontAwesomeIcon className="cloud-icon" icon={faCloud} />
-              <h4>Mysterion</h4>
+             <div className="rights-container">
+                <h4>Mysterion</h4>
+                <p className="rights-reserved">&copy; Mysterion LLC 2019 All Rights Reserved</p>
+             </div>
             </div>
 
             <div className="link-container">
               <div className="link-column">
-                <form className="news-letter-form">
-                  <input
-                    type="email"
-                    placeholder="Subscribe to our news letter"
-                    required
-                  />
-                  <button type="submit" className="red-btn">
-                    Subscribe
-                  </button>
-                </form>
+                
 
                 <div className="list-row">
                   <ul className="link-list">
+                    <li>
+                      <Link to="/home">Home</Link>
+                    </li>
                     <li>
                       <Link to="/contact">Contact</Link>
                     </li>
                     <li>
                       <Link to="/work">Work</Link>
                     </li>
-                    <li>
-                      <Link to="/about">About</Link>
-                    </li>
-
-                    <li>
-                      <a href="mailto:mysterion@gmail.com" id="email">
-                        Mysterion@gmail.com
-                      </a>
-                    </li>
+                    
                   </ul>
 
                   <ul className="link-list">
+                    <li>
+                      <Link to="/about">About</Link>
+                    </li>
                     <li>
                       <Link to="/shop">Shop</Link>
                     </li>
@@ -63,9 +54,18 @@ class Footer extends React.Component{
               </div>
             </div>
             <div className="rights">
-              <p id="mysterion-name">Mysterion</p>
+              <form className="news-letter-form">
+                <input
+                  type="email"
+                  placeholder="Subscribe to our news letter"
+                  required
+                />
+                <button type="submit" className="red-btn">
+                  Sign Up
+                  </button>
+              </form>
               <a href="mailto:mysterion@gmail.com">Mysterion@gmail.com</a>
-              <p className="rights-reserved">&copy; Mysterion LLC 2019 All Rights Reserved</p>
+              
             </div>
           </div>
         );

@@ -35,16 +35,16 @@
     background: #D3D3D3;
     width: 100%;
     min-height: 3em;
-    max-height: 19.4em;
+    max-height: 20.4em;
 }
 
 @keyframes in{
     from {height: 0;}
-    to {height: 19.4em;}
+    to {height: 20.4em;}
 }
 
 @keyframes out{
-    from {height: 19.4em;}
+    from {height: 20.4em;}
     to {height: 0;}
 }
 

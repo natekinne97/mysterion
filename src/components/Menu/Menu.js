@@ -38,14 +38,17 @@ class Menu extends React.Component{
                     <li><Link to="/about" onClick={this.mobileShow}>About</Link></li>
                     <li><Link to="/contact" onClick={this.mobileShow}>Contact</Link></li>
                     <li><Link to="/shop" onClick={this.mobileShow}>Shop</Link></li>
-                    
+                    <li> <a href="tel:1-800-MYSTERION">1-800-MYSTERION</a></li>
+                    <li>
+                        <Link to="/cart"> Cart(
+                                <span>{this.context.numberOfItems}</span>
+                            )
+                     </Link>
+                    </li>
                 </ul>
                 <div className="cart-corner">
-                    <p>1-800-MYSTERION</p>
-                    <Link to="/cart"> Cart(
-                                <span>{this.context.numberOfItems}</span>
-                                 )
-                     </Link>
+                   
+                   
                 </div>
             </div>
         );
