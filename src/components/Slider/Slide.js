@@ -3,7 +3,7 @@ import RightArrow from './RightArrow';
 import LeftArrow from './LeftArrow';
 
 const Slide = (props) => {
-    console.log(props.edit, 'edit');
+  
     const styles = {
       backgroundImage: `url(${props.image})`,
       backgroundSize: "cover",

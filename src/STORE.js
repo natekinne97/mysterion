@@ -1,7 +1,7 @@
 const roundSTORE = [
   {
     id: 1,
-    img: "https://i.imgur.com/QEgL0bd.jpg",
+    img: "https://mysterian.s3.amazonaws.com/walkingplaceSearched",
     company: "Taylor Beer",
     testimony: "They did a great job making our business cards and brochure",
     person: "Karen",

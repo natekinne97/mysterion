@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import roundSTORE from '../../STORE';
 import Slide from '../Slider/Slide'
 
 
@@ -10,6 +9,8 @@ import './Work.css';
 // change the data
 import EditForm from '../../adminComponents/EditWork/EditWork';
 import AddWork from '../../adminComponents/AddWork/Addwork';
+import config from '../../config';
+
 // this class renders work
 // the main project will be rendere in a carousel
 // click on it and it expands with more info
@@ -18,88 +19,107 @@ import AddWork from '../../adminComponents/AddWork/Addwork';
 // the adding will be lower down since in the static version we are going to 
 // be using the state
 // the work class  only takes a single pic from each company
-// 
 
+
+// displays all the work data
 export  const Work = (props)=>{
   const [data, setData] = useState(null);
+  // for controlling which image is displayed
   const [index, setIndex] = useState(0);
+  // showing which company index is diplayed
+  const [compIndex, setCompIndex] = useState(0);
+  // highlights the company clicked on
+  const [compClicked, setComp] = useState(null);
   const [showEditform, setEditForm] = useState(false);
   const [showAddForm, setAddForm] = useState(false);
 
   useEffect(()=>{
-    const allData = getData();
-    setData(allData);
-  }, []);
+    fetch(`${config.API_ENDPOINT}`)
+      .then(response=> response.json())
+      .then(allData=>{
+        let allItems = sortData(allData);
+        // for checking if a company has been clicked
+        let thing = generateCompanyClicks(allItems);
+        setComp(thing);
+        setData(allItems);
+      });
 
+  }, []);
+  // if(data != 'undefined'){
+  //   console.log(data, 'data')
+  // }
   // go to previous slide
-  const prevSlideNumber = (i, compClicked)=>{
-    setData(prevData=>{
-      return {
-        ...prevData,
-        compClicked
-      }
-    });
-    setIndex(i, 'index');
+  const prevSlideNumber = (i)=>{
+    if (i === 0) {
+      let length = data[compIndex].images.length-1
+      setIndex(length)
+    } else {
+      let tmp = index;
+      setIndex(tmp-1);
+    }
   
   }
 
   // go to the next slide
-  const nextSlideNumber = (i, compClicked) => {
-    setData(prevData => {
-      return {
-        ...prevData,
-        compClicked
-      }
-    });
-    setIndex(i, 'index');
+  const nextSlideNumber = (i) => {
+    if(i === data[compIndex].images.length-1){
+      setIndex(0)
+    }else{
+      let tmp = index;
+      setIndex(tmp+1);
+    }
   }
   // when a company is clicked change the color and the content
   const companyClicked = id =>{
-    let compClicked = data.compClicked;
-    // change the previous state to false
-    compClicked[index] = false;
-    // change the next index to be true
-    compClicked[Number(id)] = true;
-    setIndex(Number(id));
-    setData(prevData => {
-      return {
-        ...prevData,
-        compClicked
-      }
-    });
+    // get the array of active company
+    let active = compClicked;
+    // use the company index to change the previous active to false
+    active[compIndex] = false;
+    // set the clicked company to active
+    active[id] = true;
+    // initiate the change for the active company
+    setComp(active);
+    // change company index for a different set of images
+    setCompIndex(id);
 
   }
 
   const RenderEditForm = (e)=>{
     if(showEditform){
       setEditForm(false);
+      setAddForm(false);
     }else{
       setEditForm(true);
+      setAddForm(false);
     }
   }
 
   const RenderAddForm = (e) => {
     if (showAddForm) {
       setAddForm(false);
+      setEditForm(false);
     } else {
       setAddForm(true);
+      setEditForm(false);
     }
   }
   
   // only render if there is data
   if(data){
+    
     return (
       <div className="work">
         <div className={`${props.edit ? "edit-work" : ""}`}>
-          {RenderSlider(Number(index), data.images, data.testimony,
-           data.person, data.compClicked, prevSlideNumber, nextSlideNumber)}
+          {/* index, compIndex,  data, prevSlideNumber, nextSlideNumber */}
+          {RenderSlider(Number(index), Number(compIndex), data, prevSlideNumber, nextSlideNumber)}
 
-          {renderCompanies(index, data.company, data.compClicked, companyClicked)}
+          {renderCompanies(data, compClicked, companyClicked)}
+          {/* compIndex, data */}
+          { RenderWorkData(compIndex, data)}
 
-          {RenderWorkData(Number(index), data.scope, data.bottomLine, 
-          data.link, data.logo, data.company)}
-
-
+          {/* Render testimony */}
+          <p>"{data[compIndex].testimony}"</p>
+          <p>- {data[compIndex].person}</p>
           {props.edit ?
             <RenderOptions
               renderEditform={e => { RenderEditForm() }}
@@ -113,13 +133,24 @@ export  const Work = (props)=>{
               currentIndex={index}
               handleFormSubmit={e => {
                 e.preventDefault();
+                // returns the updated data
+                const updated = handleEditSubmit(e, data, index);
+                setData(updated);
                 setEditForm(false);
               }}
             />
           : null}
 
           {showAddForm ?
-          <AddWork/>
+          <AddWork 
+            handleFormSubmit={e=>{
+              e.preventDefault()
+              const added = handleAddSubmit(e, data, index);
+             
+              setData(prevData=> added);
+              setAddForm(false);
+            }}
+          />
           : null}
 
 
@@ -132,209 +163,114 @@ export  const Work = (props)=>{
     return null
   }
   // className={`${props.edit ? "edit-work" : ""}`}
-
 };
-
-// gets all the data for the component
-// will be modified for reuse when api is finished
-const getData = ()=>{
-
-  // makes an array of all the images
-  let img = roundSTORE.map(image => {
-    return image.img
-  })
-  // make an array of all the data
-  let company = roundSTORE.map(data => {
-    return data.company;
-  })
-
-  let testimony = roundSTORE.map(data => {
-    return data.testimony;
-  })
-
-  let person = roundSTORE.map(data => {
-    return data.person;
-  });
-
-  let scope = roundSTORE.map(data => {
-    return data.scope;
-  });
-
-  let bottomLine = roundSTORE.map(data => {
-    return data.bottomLine;
-  });
-
-  let logo = roundSTORE.map(data => {
-    return data.logo;
-  });
-
-  let link = roundSTORE.map(data => {
-    return data.link;
-  });
-
-
-  let index = roundSTORE.map((data, index) => {
-    return index;
-  });
-
-  let compClicked = [];
-  for (let i = 0; i < roundSTORE.length; i++) {
-    if (i === 0) compClicked[i] = true;
-    else compClicked[i] = false
-  }
- 
-  const obj = {
-    images: Object.values(img),
-    company: Object.values(company),
-    testimony: Object.values(testimony),
-    person: Object.values(person),
-    scope: Object.values(scope),
-    bottomLine: Object.values(bottomLine),
-    logo: Object.values(logo),
-    link: Object.values(link),
-    index: Object.values(index),
-    compClicked: Object.values(compClicked)
-  }
-
-  return obj;
-
-}
 
 
 
 // this class displays all the work data for the given company
 // based on the index. the index is passed in and 
 // so are the rest of the data storing arrays
-export const RenderWorkData = (index, scope, bottomLine, visit, logo, company, home=null)=>{
-  console.log(scope, 'scope');
-  console.log(bottomLine, 'bottomline');
-  console.log(visit, 'visit');
-  console.log(logo, 'logo');
-  console.log(company, 'company')
+export const RenderWorkData = (compIndex, data, home=null)=>{
   const imgStyle = {
-    backgroundImage: `url(${home ? logo :logo[index]})`,
+    backgroundImage: `url(${home ? data.logo : data[compIndex].logo})`,
     backgroundSize: "contain",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "50% 60%"
   };
-  console.log(bottomLine, 'bottom line');
-  // return <h1>fuck</h1>
+ 
   return (
     <div className="work-data">
       <div className="work-entry">
         <h1>Scope</h1>
         <div className="orange-bar"></div>
-        <p>{home ? scope : scope[index]}</p>
+        <p>{home ? data.scope : data[compIndex].scope}</p>
       </div>
     {/* go check em out */}
       <div className="work-entry">
         <h1>Go Check Em Out</h1>
         <div className='orange-bar'></div>
         <p>Click the link to visit their site</p>
-        <a href={home ? visit : visit[index]}>
-          <div className="logo-link" style={imgStyle} title={`logo for ${home ? company :company[index]}`}></div>
+        <a href={home ? data.visit : data[compIndex].visit}>
+          <div className="logo-link" style={imgStyle} title={`logo for ${home ? data.company : 
+            data[compIndex].company}`}></div>
         </a>
       </div>
       {/* bottom line */}
       <div className="work-entry">
         <h1>Bottom Line</h1>
         <div className="orange-bar"></div>
-        <p>{home ? bottomLine : bottomLine[index]}</p>
+        <p>{home ? data.bottomLine : data[compIndex].bottomLine}</p>
       </div>
 
     </div>
   );
 }
 
- 
-export const RenderSlider = (index, image, testimony, person, 
-  compClicked, prevSlideNumber, nextSlideNumber)=>{
+// renders the slider
+export const RenderSlider = (index, compIndex,  data, prevSlideNumber, nextSlideNumber)=>{
   if(typeof index !== 'number'){
     console.log('Error Index must be a number');
     return null;
   }
 
-
   return (
     <div className="work-slide">
       <Slide
         goToPrevSlide={()=>{
-          PrevSlide(index, compClicked, prevSlideNumber)
+          prevSlideNumber(index);
         }}
         goToNextSlide={()=>{
-          NextSlide(index, compClicked, nextSlideNumber);
+         nextSlideNumber(index);
         }}
         edit={false}
         key={index}
-        image={image[index]}
+        image={data[compIndex].images[index]}
       />
-      {/* render the testimony and person who made it */}
-      <p>{testimony[index]}</p>
-      <p>- {person[index]}</p>
+     
     </div>
   );
 }
 
 
-export const PrevSlide = (index, compClicked, prevSlideNumber)=>{
-  // get the previous index
-  const prevIndex = index;
-  // if the index is 0
-  // then set the previoud index to have false in the compClicked
-  if (index === 0) {
-    const end = compClicked.length - 1;
-    compClicked[prevIndex] = false;
-    compClicked[end] = true;
-    return prevSlideNumber(index=end, compClicked);
-  }
-  // change the previous index to false
-  compClicked[prevIndex] = false;
-  // change the clicked on index to true displaying the color
-  compClicked[prevIndex - 1] = true;
-  console.log('changing data');
-  return prevSlideNumber(index-1, compClicked);
-}
-
-export const NextSlide = (index, compClicked, nextSlideNumber)=>{
-  // Exiting the method early if we are at the end of the images array.
-  // We also want to reset currentIndex and translateValue, so we return
-  // to the first image in the array.
-  if (index === compClicked.length - 1) {
-    compClicked[index] = false;
-    compClicked[0] = true;
-    return nextSlideNumber(index = 0, compClicked);
+export const renderCompanies = ( data, compClicked, companyClicked)=>{
+  if(data.length > 0){
+    return (
+      <div className="company-list-container">
+        <ul className="company-list">
+          {data.map((comp, i) => (
+            <li
+              key={i ** 3}
+              className={`${compClicked[i] ? 'orange' : 'black'}`}
+              onClick={e => {
+                companyClicked(i)
+              }}
+            >
+              {comp.company}
+            </li>
+          ))}
+       
+        </ul>
+      </div>
+    );
+  }  else{
+    console.log('no data')
   }
 
-
-  // change the previous index to false
-  compClicked[index] = false;
-  // change the clicked on index to true displaying the color
-  compClicked[index + 1] = true;
-
-  // This will not run if we met the if condition above
-  return nextSlideNumber(index+1, compClicked);
 }
 
-export const renderCompanies = (index, company, compClicked, companyClicked)=>{
+// generates an array of bools that track which one was clicked
+// not exported because it doesn't need to be it will be used locally in this component
+const generateCompanyClicks = (data)=>{
+  let compClicks = [];
+  for(let i =0; i<data.length; i++){
+    if(i === 0)compClicks.push(true);
+    compClicks.push(false);
+  }
  
-  return (
-    <div className="company-list-container">
-      <ul className="company-list">
-        {company.map((comp, i) => (
-          <li
-            key={i ** 3}
-            className={`${compClicked[i] ? 'orange' : 'black' }`}
-            onClick={e => companyClicked(i)}
-          >
-            {comp}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+  return compClicks;
 }
 
-export const handleEditSubmit = e =>{
+export const handleEditSubmit = (e, data, index) =>{
   let formData = {
     images: e.target.image.value,
     company: e.target.company.value,
@@ -345,9 +281,43 @@ export const handleEditSubmit = e =>{
     logo: e.target.logo.value,
     link: e.target.link.value,
   }
+  // updating data to reflect the change 
+  data.images[index] = formData.images;
+  data.company[index] = formData.company;
+  data.testimony[index] = formData.testimony;
+  data.person[index] = formData.person;
+  data.scope[index] = formData.scope;
+  data.bottomLine[index] = formData.bottomLine;
+  data.logo[index] = formData.logo;
+  data.link[index] = formData.link;
 
-  return formData;
-}       
+  return data;
+} 
+
+export const handleAddSubmit = (e, data, index)=>{
+  let formData = {
+  };
+  formData.images = e.target.image.value;
+  formData.company = e.target.company.value;
+  formData.testimony = e.target.testimony.value;
+  formData.person = e.target.person.value;
+  formData.scope = e.target.scope.value;
+  formData.bottomLine = e.target.bottomline.value;
+  formData.logo = e.target.logo.value;
+  formData.link = e.target.link.value;
+  
+
+  data.images.push(formData.images);
+  data.company.push(formData.company);
+  data.testimony.push(formData.testimony);
+  data.person.push(formData.person);
+  data.scope.push(formData.scope);
+  data.bottomLine.push(formData.bottomLine);
+  data.logo.push(formData.logo);
+  data.link.push(formData.link);
+
+  return data;
+}
 
 export const RenderOptions = (props)=>{
   return (
@@ -363,215 +333,65 @@ export const RenderOptions = (props)=>{
 }
 
 
-//     // handles the adding the 
-//     handleAddSubmit = e =>{
-//         e.preventDefault();
-        
-//         let formData = {  
-//           images: e.target.image.value,
-//           company: e.target.company.value,
-//           testimony: e.target.testimony.value,
-//           person: e.target.person.value,
-//           scope: e.target.scope.value,
-//           bottomLine: e.target.bottomline.value,
-//           logo: e.target.logo.value,
-//           link: e.target.link.value,
-//         }
+export const sortData = (allData)=>{
+  // get all of the items
+  let item = allData.items;
+  // get the assets ie image urls
+  let assets = allData.includes.Asset;
+
+  let allItems = [];
+
+  // start at the first item.
+  for (let i = 0; i < item.length; i++) {
+    // console.log(item[i].fields.images.length, )
+    let imgArr = item[i].fields.images;
+    let imgCont = [];
+    let logo = '';
+
+    // loop through images
+    for (let imgs = 0; imgs < imgArr.length; imgs++) {
+      // loop through assets
+      for (let a = 0; a < assets.length; a++) {
+        // extract the images
+        // check if the asset id is the same as the image id
+        if (assets[a].sys.id === item[i].fields.images[imgs].sys.id) {
+          imgCont.push(assets[a].fields.file.url);
+        }
 
 
-//         // here we call our insert but the inert depends on 
-//         // what area the update is going to
+        // extract the logos
+        if (assets[a].sys.id === item[i].fields.logo.sys.id) {
+          // set the logo for the current item to the url
+          // minus the // in the url
+          logo = assets[a].fields.file.url;
+        }
+      }
+    }
 
+    // insert the items into a custom array of objects
+    // for better control
+    allItems.push(
+      {
+        images: imgCont,
+        company: item[i].fields.company,
+        testimony: item[i].fields.testimony,
+        person: item[i].fields.person,
+        scope: item[i].fields.scope,
+        bottomLine: item[i].fields.bottomLine,
+        logo: logo,
+        link: item[i].fields.bottomLine,
+        highlight: item[i].fields.highlight
+      }
+    );
+  }
+  return allItems;
+}
 
-//         let stateObject = {
-//           images: this.state.images,
-//           company: this.state.company,
-//           testimony: this.state.testimony,
-//           person: this.state.person,
-//           scope: this.state.scope,
-//           bottomLine: this.state.bottomLine,
-//           logo: this.state.logo,
-//           link: this.state.link,
-//         };
-//         // insert the new project in to the state
-//         for(const key of Object.keys(stateObject)){
-//             stateObject[key].push(formData[key]);
-//             console.log(stateObject[key], 'keys')
-//         }
-//         // change the currently highlighted image
-//         let compClicked = this.state.compClicked;
-//         compClicked[this.state.currentIndex] = false;
-//         compClicked[stateObject.images.length -1] = true;
-      
-//         // insert into the state and then 
-//         this.setState({
-//             ...stateObject,
-//             currentIndex: stateObject.images.length -1,
-//             compClicked: compClicked,
-//             addWork: false
-//         })
-
-//     }
-
-//     // delete a portfolio project
-//     removeEntry = ()=>{
-//         /**
-//          * 
-//          * images: [],
-//             company: [],
-//             testimony: [],
-//             person: [],
-//             scope: [],
-//             bottomLine: [],
-//             logo: [],
-//             link: [],
-//             index: [],
-//             compClicked: [],
-//          */
-//         let {images, company, testimony, person, scope, bottomLine,
-//             logo, link, compClicked, currentIndex} = this.state;
-//         // remove image
-//         let companyArr = [];
-//         let imgArr = [];
-//         let testimonyArr = [];
-//         let personArr = [];
-//         let scopeArr = [];
-//         let bottomLineArr = [];
-//         let logoArr = [];
-//         let linkArr = [];
-//         let compClickedArr = [];
-        
-//         // filter the arrays to 
-//         for(let i =0; i< images.length; i++){
-//             if(i !== currentIndex){
-//                 imgArr.push(images[i]);
-//                 companyArr.push(company[i]);
-//                 testimonyArr.push(testimony[i]);
-//                 personArr.push(person[i]);
-//                 scopeArr.push(scope[i]);
-//                 bottomLineArr.push(bottomLine[i]);
-//                 logoArr.push(logo[i]);
-//                 linkArr.push(link[i]);
-//                 compClickedArr.push(compClicked[i]);
-//             }
-            
-//         }
-        
-//         this.setState({
-//             images: imgArr,
-//             company: companyArr,
-//             testimony: testimonyArr,
-//             person: personArr,
-//             scope: scopeArr,
-//             bottomLine: bottomLineArr,
-//             logo: logoArr,
-//             link: linkArr,
-//             compClicked: compClickedArr
-//         })
-//         // remove data
-//     }
-
-//     // this is the onclick for 
-//     renderEditFrom = ()=> {
-//         if(this.state.editWork && this.props.edit){
-//             this.setState({
-//                 editWork: false
-//             })
-//             console.log('hiding editor')
-//         }else if(this.props.edit){
-//             this.setState({
-//                editWork: true 
-//             })
-//             console.log('displaying editor')
-//         }
-//     }
-
-//     renderAddForm = ()=>{
-//         if (this.state.addWork && this.props.edit) {
-//             console.log('hiding add form')
-//             this.setState({
-//                 addWork: false
-//             })
-//             console.log('hiding editor')
-//         } else if (this.props.edit) {
-//             console.log('displaying add form')
-//             this.setState({
-//                 addWork: true
-//             })
-//             console.log('displaying editor')
-//         }
-//     }
-
-//     // options are 
-//     // add, edit, remove
-//     renderOptions(){
-        // if(this.props.edit){
-//         }else{
-//             return null;
-//         }
-//     }
-
-
-
-//     renderInstructions(){
-//         if(this.props.edit && this.props.highlights){
-//             return (
-//               <div>
-//                 <h1>Edit or change Highlights</h1>
-//                 <p>
-//                     Change highlights on the home page
-//                     or make a new homepage highlight.
-//                 </p>
-//               </div>
-//             );
-//         }else if(this.props.edit){
-//             return (
-//                 <div>
-//                     <h1>Work Page Edit</h1>
-//                     <p>Add/Edit/Delete work projects</p>
-//                 </div>
-//             );
-//         }else{
-//             return null;
-//         }
-//     }
-
-
-//     render(){
-//         let {
-//           images,
-//           company,
-//           testimony,
-//           person,
-//           scope,
-//           bottomLine,
-//           logo,
-//           link,
-//           currentIndex
-//         } = this.state;
-//         return (
-//           <div className="work">
-//             <div className={`${this.props.edit ? "edit-work" : ""}`}>
-//                 {this.renderInstructions()}
-//                 {this.renderSlider()}
-//                 {this.renderCompanies()}
-//                 {this.renderData()}
-//                 {/* render options */}
-//                 {this.props.edit ?
-//                 this.renderOptions()
-//                   : null}
-//                     {/* for editing this component */}
-//                     {this.state.editWork ? (
-
-//                  ) : null}
-
-//               {/* for adding to this component */}
-//               {this.state.addWork ? (
-//                 <AddWork handleFormSubmit={this.handleAddSubmit} />
-//               ) : null}
-//             </div>
-//           </div>
-//         );
-//     }
-// }
-// export default Work;
+// this is a function that adds on to the sort data. 
+// you first get the sorted data and this function returns only
+// the highlight
+export const findHighlight = (allData)=>{
+  return allData.filter(data=> {
+    if(data.highlight)return data;
+  })
+}
