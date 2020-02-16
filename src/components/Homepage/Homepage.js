@@ -1,6 +1,6 @@
 import React from 'react';
 import Slide from '../Slider/Slide';
-import {RenderWorkData} from '../Work/Work';
+import {RenderWorkData, sortData, findHighlight} from '../Work/Work';
 import config from '../../config';
 import './Homepage.css';
 
@@ -26,21 +26,23 @@ class Homepage extends React.Component{
     // this will run in didmount
     // it will make the call to the server to get all the images for the slide
     getImg = async() =>{
-        const settings = {
-            method: "GET",
-            headers: {
-                "content-type": "application/json",
-            },
-        };
-        // /api
-        const fetchedData = await fetch(`${config.API_ENDPOINT}/projects/highlight/true`, settings);
+        
+      
+        // get the data from contentful
+        const fetchedData = await fetch(`${config.API_ENDPOINT}`);
+        // change the data to json
         const data = await fetchedData.json();
-        console.log('data',data);
-        console.log('setting state with data')
+        // sort the data
+        let allData = await sortData(data);
+        // find the highlight
+        let filtered = await findHighlight(allData);
+        
+       
         this.setState({
-            data: data
+            // set the data to the filtered[0] to remove the obj from the array
+            data: filtered[0]
         })
-        console.log(this.state.data.images[this.state.currentIndex]);
+        
     }
 
     // displays previous slide
@@ -98,9 +100,6 @@ class Homepage extends React.Component{
         }
     }
 
-    // there will be a carousel here that displays work done for recent 
-    // projects
-
     // get data from api
     renderStatement(){
         const testimony = this.state.data ? this.state.data.testimony : 'testimony';
@@ -130,7 +129,6 @@ class Homepage extends React.Component{
 
 
     render(){
-    //    index, scope, bottomLine, visit, logo, company
         return(
             <div className="homepage">
                 {this.renderSlide()}
