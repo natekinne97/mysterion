@@ -20,7 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 // shopping
 import ShoppingPage from '../ShoppingPage/ShoppingPage';
 import ItemInfo from '../ItemInfo/ItemInfo';
-import Cart from '../Cart/Cart';
+
 // private route
 // import PrivateRoute from '../../routes/private';
 
