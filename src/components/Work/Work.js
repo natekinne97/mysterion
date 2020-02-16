@@ -2,13 +2,11 @@ import React, {useState, useEffect} from 'react';
 import Slide from '../Slider/Slide'
 
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt, faTrash, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faPencilAlt, faTrash, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 
 import './Work.css';
-// change the data
-import EditForm from '../../adminComponents/EditWork/EditWork';
-import AddWork from '../../adminComponents/AddWork/Addwork';
+
 import config from '../../config';
 
 // this class renders work
