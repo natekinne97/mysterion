@@ -3,10 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 
 // import context
 // Components
-import LoginPage from '../../routes/LoginPage'
-import CreatePage from '../../routes/CreatePage';
-import ForgotPassword from '../ForgotPassword/ForgotPassword';
-import Reset from '../Reset/Reset';
 import itemContext from '../../context/itemContext';
 // my components
 import Menu from '../Menu/Menu';
@@ -20,7 +16,7 @@ import LandingPage from '../LandingPage/LandingPage';
 // shopping
 import ShoppingPage from '../ShoppingPage/ShoppingPage';
 import ItemInfo from '../ItemInfo/ItemInfo';
-import Cart from '../Cart/Cart';
+
 // private route
 // import PrivateRoute from '../../routes/private';
 
@@ -29,11 +25,6 @@ import TokenService from '../../services/token-services'
 import authApi from '../../auth-service/auth-service'
 import IdleService from '../../services/idle-services';
 
-
-// admin side
-import AdminMenu from '../../adminComponents/AdminMenu/AdminMenu';
-import NewsLetter from '../../adminComponents/NewsLetters/NewsLetters';
-import EditLP from '../../adminComponents/EditLP/EditLP';
 
 class App extends React.Component {
   static contextType = itemContext;
@@ -106,24 +97,7 @@ class App extends React.Component {
     this.forceUpdate()
   }
 
-  renderAdminMenu(){
-    return (
-      <>
-        {['/admin-stuff', '/admin-stuff/work', '/admin-stuff/items',
-          '/admin-stuff/items/:id', '/admin-stuff/letters',
-          '/admin-stuff/landingpage', '/admin-stuff/highlights',
-          '/admin-stuff/stats'].map((path, index)=>(
-          <Route
-            key={index}
-            exact
-            path={path}
-            component={AdminMenu}
-          />
-        ))}
-      </>
-    );
-  }
-
+ 
   renderRegularMenu(){
     return(
       <>
@@ -167,16 +141,13 @@ class App extends React.Component {
           {/* menu goes here */}
           {this.renderRegularMenu()}
           {/* <Menu/> */}
-          {/* render the admin menu */}
-          {this.renderAdminMenu()}
-          {/* renders only on the admin side */}
+         
+          
         </nav>
         <main>
           <Switch>
             {/* the landing page */}
-            <Route exact path="/landingpage" component={LandingPage} />
-
-            <Route path="/admin-stuff/landingpage" component={EditLP} />
+            <Route exact path="/landingpage" component={LandingPage} />>
 
             {/* homepage */}
             <Route exact path="/" component={Homepage} />
@@ -190,13 +161,8 @@ class App extends React.Component {
           in the future it will be based on whether the component has an auth
           token.
           */}
-            <Route exact path="/admin-stuff/work">
-              <Work edit={true} />
-            </Route>
-            {/*  */}
-            <Route exact path="/admin-stuff/highlights">
-              <Work edit={true} highlights={true} />
-            </Route>
+       
+           
             {/* render the about page */}
             <Route path="/about" component={About} />
 
@@ -208,36 +174,11 @@ class App extends React.Component {
             {/* render item info */}
             <Route path="/shop/:id" component={ItemInfo} />
 
-            <Route
-              path="/admin-stuff/items/:id"
-              render={props => <ItemInfo {...props} edit={true} />}
-            />
 
             {/* render the shopping page */}
             <Route exact path="/shop" component={ShoppingPage} />
 
-            <Route exact path="/admin-stuff/items">
-              <ShoppingPage edit={true} />
-            </Route>
-
-            {/* renders the news letter page for creating and sending new letters */}
-            <Route path="/admin-stuff/letters" component={NewsLetter} />
-
-            {/* login route */}
-            <Route path="/admin-stuff/login" component={LoginPage} />
-            {/* signup */}
-            {/* <Route
-              path="/signup"
-              component={CreatePage}
-            /> */}
-
-            {/* forgot password */}
-            <Route
-              path="/admin-stuff/forgot-password"
-              component={ForgotPassword}
-            />
-            {/* reset password */}
-            <Route path="/admin-stuff/reset/:token" component={Reset} />
+            
           </Switch>
         </main>
         <footer>

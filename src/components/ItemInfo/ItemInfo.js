@@ -2,12 +2,6 @@ import React from 'react';
 import ITEMS from '../../ShoppingItems'
 import { Link } from 'react-router-dom';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
-
-// edit
-import EditProduct from '../../adminComponents/EditProduct/EditProduct';
-
 import itemContext from '../../context/itemContext';
 import './ItemInfo.css';
 // this component renders the info gotten from the server.
@@ -58,56 +52,6 @@ class ItemInfo extends React.Component{
         this.getItemsInfo();
     }
 
-    // display edit form
-    displayEditForm = ()=>{
-        if(this.state.edit && this.props.edit){
-            this.setState({
-                edit: false
-            })
-        }else if(this.props.edit){
-            this.setState({
-                edit: true
-            })
-        }
-    }
-
-    // submit edit form for items
-    itemEditFormSubmit = e =>{
-        e.preventDefault();
-        // get data from form
-        const {image, title, description, price} = e.target
-        // update data from state
-        const updatedItem = {
-            img: image.value,
-            title: title.value,
-            description: description.value,
-            price: price.value
-        }
-        
-        // update state
-        this.setState({
-            item: updatedItem,
-            // hide form
-            edit: false
-        })
-        
-    }
-
-
-    // display the options
-    renderOptions = () => {
-        if (this.props.edit) {
-            // edit will only happen on the info page
-            return (
-                <div className="edit-btn">
-                   <FontAwesomeIcon icon={faPencilAlt} onClick={this.displayEditForm} />
-                </div>
-            );
-        } else {
-            return null;
-        }
-    }
-
     renderItemInfo(){
         if(this.state.item){
             
@@ -139,12 +83,7 @@ class ItemInfo extends React.Component{
     render(){
         
         return(
-            <div className="item-info">
-                {/* if in edit mode and the user is logged in
-                then display the edit form */}
-                {this.state.edit ?
-                <EditProduct  item={this.state.item} handleFormSubmit={this.itemEditFormSubmit}/>
-                : null}
+            <div className="item-info">           
                 {this.renderItemInfo()}
             </div>
         )

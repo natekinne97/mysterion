@@ -2,13 +2,11 @@ import React, {useState, useEffect} from 'react';
 import Slide from '../Slider/Slide'
 
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt, faTrash, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faPencilAlt, faTrash, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 
 import './Work.css';
-// change the data
-import EditForm from '../../adminComponents/EditWork/EditWork';
-import AddWork from '../../adminComponents/AddWork/Addwork';
+
 import config from '../../config';
 
 // this class renders work
@@ -30,8 +28,7 @@ export  const Work = (props)=>{
   const [compIndex, setCompIndex] = useState(0);
   // highlights the company clicked on
   const [compClicked, setComp] = useState(null);
-  const [showEditform, setEditForm] = useState(false);
-  const [showAddForm, setAddForm] = useState(false);
+ 
 
   useEffect(()=>{
     fetch(`${config.API_ENDPOINT}`)
@@ -84,32 +81,12 @@ export  const Work = (props)=>{
 
   }
 
-  const RenderEditForm = (e)=>{
-    if(showEditform){
-      setEditForm(false);
-      setAddForm(false);
-    }else{
-      setEditForm(true);
-      setAddForm(false);
-    }
-  }
-
-  const RenderAddForm = (e) => {
-    if (showAddForm) {
-      setAddForm(false);
-      setEditForm(false);
-    } else {
-      setAddForm(true);
-      setEditForm(false);
-    }
-  }
-  
   // only render if there is data
   if(data){
     
     return (
       <div className="work">
-        <div className={`${props.edit ? "edit-work" : ""}`}>
+        <div>
           {/* index, compIndex,  data, prevSlideNumber, nextSlideNumber */}
           {RenderSlider(Number(index), Number(compIndex), data, prevSlideNumber, nextSlideNumber)}
 
@@ -120,41 +97,7 @@ export  const Work = (props)=>{
           {/* Render testimony */}
           <p>"{data[compIndex].testimony}"</p>
           <p>- {data[compIndex].person}</p>
-          {props.edit ?
-            <RenderOptions
-              renderEditform={e => { RenderEditForm() }}
-              renderAddForm={RenderAddForm}
-            />
-            : null}
-
-          {showEditform ?
-            <EditForm
-              data={data}
-              currentIndex={index}
-              handleFormSubmit={e => {
-                e.preventDefault();
-                // returns the updated data
-                const updated = handleEditSubmit(e, data, index);
-                setData(updated);
-                setEditForm(false);
-              }}
-            />
-          : null}
-
-          {showAddForm ?
-          <AddWork 
-            handleFormSubmit={e=>{
-              e.preventDefault()
-              const added = handleAddSubmit(e, data, index);
-             
-              setData(prevData=> added);
-              setAddForm(false);
-            }}
-          />
-          : null}
-
-
-
+         
         </div>
       </div>
     );
@@ -162,7 +105,7 @@ export  const Work = (props)=>{
   }else{
     return null
   }
-  // className={`${props.edit ? "edit-work" : ""}`}
+  
 };
 
 
@@ -268,68 +211,6 @@ const generateCompanyClicks = (data)=>{
   }
  
   return compClicks;
-}
-
-export const handleEditSubmit = (e, data, index) =>{
-  let formData = {
-    images: e.target.image.value,
-    company: e.target.company.value,
-    testimony: e.target.testimony.value,
-    person: e.target.person.value,
-    scope: e.target.scope.value,
-    bottomLine: e.target.bottomline.value,
-    logo: e.target.logo.value,
-    link: e.target.link.value,
-  }
-  // updating data to reflect the change 
-  data.images[index] = formData.images;
-  data.company[index] = formData.company;
-  data.testimony[index] = formData.testimony;
-  data.person[index] = formData.person;
-  data.scope[index] = formData.scope;
-  data.bottomLine[index] = formData.bottomLine;
-  data.logo[index] = formData.logo;
-  data.link[index] = formData.link;
-
-  return data;
-} 
-
-export const handleAddSubmit = (e, data, index)=>{
-  let formData = {
-  };
-  formData.images = e.target.image.value;
-  formData.company = e.target.company.value;
-  formData.testimony = e.target.testimony.value;
-  formData.person = e.target.person.value;
-  formData.scope = e.target.scope.value;
-  formData.bottomLine = e.target.bottomline.value;
-  formData.logo = e.target.logo.value;
-  formData.link = e.target.link.value;
-  
-
-  data.images.push(formData.images);
-  data.company.push(formData.company);
-  data.testimony.push(formData.testimony);
-  data.person.push(formData.person);
-  data.scope.push(formData.scope);
-  data.bottomLine.push(formData.bottomLine);
-  data.logo.push(formData.logo);
-  data.link.push(formData.link);
-
-  return data;
-}
-
-export const RenderOptions = (props)=>{
-  return (
-    <div className="edit-btn">
-      {/* add button */}
-      <FontAwesomeIcon icon={faPlusSquare} onClick={props.renderAddForm} />
-      {/* edit button */}
-      <FontAwesomeIcon icon={faPencilAlt} onClick={props.renderEditform} />
-      {/* remove button */}
-      <FontAwesomeIcon icon={faTrash} onClick={props.removeEntry} />
-    </div>
-  );
 }
 
 
