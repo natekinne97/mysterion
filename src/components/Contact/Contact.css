@@ -20,20 +20,34 @@
     margin-bottom: 2em;
 }
 
-.regular-input{
-    font-size: 1em;
-    height: 2.3em;
-    width: 98vw;
+.split-input-container{
+    width: 100vw;
+    height: 18vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.split-input{
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .split{
     font-size: 1em;
     height: 2.3em;
-    width: 98vw;
+    width: 45%;
+}
+
+.regular-input{
+    font-size: 1em;
+    height: 2.3em;
+    width: 93vw;
 }
 
 .contact-form textarea{
     height: 3em;
+    resize: none;
 }
 
 .contact-form button{
@@ -44,26 +58,17 @@
     color: white;
     border-radius: 7px;
     border: none;
+    font-size: 1.4em;
 }
 
-.split-input-container input{
-    width: 12em;
-    margin: .2em;
-}
+
 
 @media screen and (min-width: 1024px){
-    .contact-form{
-        height: 57vh;
-        justify-content: space-evenly;
-    }
-
-    .split-input-container input{
-        width: 8.3em;
-        margin: .2em;
-    }
-
     .regular-input{
-        width: 40vw;
-        height: 2em;
+        width: 46vw;
+    }
+
+    .split-input-container{
+        width: 49vw;
     }
 }

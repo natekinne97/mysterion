@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import Slide from '../Slider/Slide'
+import Slide from '../../Slider/Slide';
+import {getProjects} from '../../Services/service';
 
 
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faPencilAlt, faTrash, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 
 import './Work.css';
-
-import config from '../../config';
 
 // this class renders work
 // the main project will be rendere in a carousel
@@ -28,19 +27,17 @@ export  const Work = (props)=>{
   const [compIndex, setCompIndex] = useState(0);
   // highlights the company clicked on
   const [compClicked, setComp] = useState(null);
- 
+  getProjects("project");
 
   useEffect(()=>{
-    fetch(`${config.API_ENDPOINT}`)
-      .then(response=> response.json())
-      .then(allData=>{
-        let allItems = sortData(allData);
-        // for checking if a company has been clicked
-        let thing = generateCompanyClicks(allItems);
-        setComp(thing);
-        setData(allItems);
-      });
-
+    async function fetchStuff() {
+      const projects = await getProjects("project");
+      console.log(projects);
+      let clicks = await generateCompanyClicks(projects);
+      setComp(clicks);
+      setData(projects);
+    }
+    fetchStuff();
   }, []);
   // if(data != 'undefined'){
   //   console.log(data, 'data')
@@ -155,7 +152,7 @@ export const RenderSlider = (index, compIndex,  data, prevSlideNumber, nextSlide
     console.log('Error Index must be a number');
     return null;
   }
-
+  console.log(data, 'renderSlider')
   return (
     <div className="work-slide">
       <Slide
