@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-
+import Fonts from '../Fonts'
+import {getLocalStorageItems} from '../../services/addItemToLocalStorage'
 import itemContext from '../../context/itemContext';
 import './Menu.css';
 
@@ -27,18 +28,24 @@ class Menu extends React.Component{
         }
     }
 
+    getNumberOfCartItems(){
+        const localCartItems = getLocalStorageItems()
+        
+        return this.context.numberOfItems?.length || localCartItems?.length
+    }
+
     // renders desktop components
     renderMenuComponents(){
         return(
             <div className="desktop-menu-container">
                 <header>Mysterion</header>
                 <ul className="desktop-menu-items">
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/work" onClick={this.mobileShow}>Work</Link></li>
+                    {/* <li><Link to="/">Home</Link></li>
+                    <li><Link to="/work" onClick={this.mobileShow}>Work</Link></li> */}
                     <li><Link to="/about" onClick={this.mobileShow}>About</Link></li>
                     <li><Link to="/contact" onClick={this.mobileShow}>Contact</Link></li>
                     <li><Link to="/shop" onClick={this.mobileShow}>Shop</Link></li>
-                    <li> <a href="tel:1-800-MYSTERION">1-800-MYSTERION</a></li>
+                    {/* <li> <a href="tel:1-800-MYSTERION">1-800-MYSTERION</a></li> */}
                     <li>
                         <Link to="/cart"> Cart(
                                 <span>{this.context.numberOfItems}</span>
@@ -69,7 +76,7 @@ class Menu extends React.Component{
                         <li><Link to="/shop" onClick={this.mobileShow}>Shop</Link></li>
                         <li>
                             <Link to="/cart" onClick={this.mobileShow}>Cart(
-                                <span>{this.context.numberOfItems}</span>
+                                <span>{this.getNumberOfCartItems()}</span>
                             )
                             </Link>
                         </li>

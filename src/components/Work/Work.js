@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import Slide from '../../Slider/Slide';
-import {getProjects} from '../../Services/service';
+import Slide from '../Slider/Slide';
+import {getProjects} from '../Services/service';
 
 
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -32,16 +32,13 @@ export  const Work = (props)=>{
   useEffect(()=>{
     async function fetchStuff() {
       const projects = await getProjects("project");
-      console.log(projects);
       let clicks = await generateCompanyClicks(projects);
       setComp(clicks);
       setData(projects);
     }
     fetchStuff();
   }, []);
-  // if(data != 'undefined'){
-  //   console.log(data, 'data')
-  // }
+
   // go to previous slide
   const prevSlideNumber = (i)=>{
     if (i === 0) {
@@ -152,7 +149,6 @@ export const RenderSlider = (index, compIndex,  data, prevSlideNumber, nextSlide
     console.log('Error Index must be a number');
     return null;
   }
-  console.log(data, 'renderSlider')
   return (
     <div className="work-slide">
       <Slide
@@ -210,66 +206,3 @@ const generateCompanyClicks = (data)=>{
   return compClicks;
 }
 
-
-export const sortData = (allData)=>{
-  // get all of the items
-  let item = allData.items;
-  // get the assets ie image urls
-  let assets = allData.includes.Asset;
-
-  let allItems = [];
-
-  // start at the first item.
-  for (let i = 0; i < item.length; i++) {
-    // console.log(item[i].fields.images.length, )
-    let imgArr = item[i].fields.images;
-    let imgCont = [];
-    let logo = '';
-
-    // loop through images
-    for (let imgs = 0; imgs < imgArr.length; imgs++) {
-      // loop through assets
-      for (let a = 0; a < assets.length; a++) {
-        // extract the images
-        // check if the asset id is the same as the image id
-        if (assets[a].sys.id === item[i].fields.images[imgs].sys.id) {
-          imgCont.push(assets[a].fields.file.url);
-        }
-
-
-        // extract the logos
-        if (assets[a].sys.id === item[i].fields.logo.sys.id) {
-          // set the logo for the current item to the url
-          // minus the // in the url
-          logo = assets[a].fields.file.url;
-        }
-      }
-    }
-
-    // insert the items into a custom array of objects
-    // for better control
-    allItems.push(
-      {
-        images: imgCont,
-        company: item[i].fields.company,
-        testimony: item[i].fields.testimony,
-        person: item[i].fields.person,
-        scope: item[i].fields.scope,
-        bottomLine: item[i].fields.bottomLine,
-        logo: logo,
-        link: item[i].fields.bottomLine,
-        highlight: item[i].fields.highlight
-      }
-    );
-  }
-  return allItems;
-}
-
-// this is a function that adds on to the sort data. 
-// you first get the sorted data and this function returns only
-// the highlight
-export const findHighlight = (allData)=>{
-  return allData.filter(data=> {
-    if(data.highlight)return data;
-  })
-}

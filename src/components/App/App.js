@@ -7,14 +7,17 @@ import itemContext from '../../context/itemContext';
 // my components
 import Menu from '../Menu/Menu';
 import Footer from '../Footer/Footer';
+import Fonts from '../Fonts'
 import Homepage from '../Homepage/Homepage';
-import {Work} from '../Reset/Work/Work';
+import {Work} from '../Work/Work';
 import Contact from '../Contact/Contact';
 import About from '../About/About';
 import LandingPage from '../LandingPage/LandingPage';
 
+
 // shopping
 import ShoppingPage from '../ShoppingPage/ShoppingPage';
+import Cart from '../Cart/Cart'
 import ItemInfo from '../ItemInfo/ItemInfo';
 
 // private route
@@ -147,13 +150,13 @@ class App extends React.Component {
         <main>
           <Switch>
             {/* the landing page */}
-            <Route exact path="/landingpage" component={LandingPage} />>
+            {/* <Route exact path="/landingpage" component={LandingPage} /> */}
 
             {/* homepage */}
-            <Route exact path="/" component={Homepage} />
+            <Route exact path="/" component={Fonts} />
 
             {/* work page */}
-            <Route exact path="/work" component={Work} />
+            {/* <Route exact path="/work" component={Work} /> */}
             {/* for the sake of code reuse i am using the same elements for
           editing and deleting.
           this element takes a parameter for now that says edit and it is a
@@ -164,9 +167,9 @@ class App extends React.Component {
        
            
             {/* render the about page */}
-            <Route path="/about" component={About} />
+            {/* <Route path="/about" component={About} /> */}
 
-            <Route path="/cart" component={ShoppingPage} />
+            <Route path="/cart" component={Cart} />
 
             {/* {render the contact page} */}
             <Route path="/contact" component={Contact} />
@@ -174,9 +177,10 @@ class App extends React.Component {
             {/* render item info */}
             <Route path="/shop/:id" component={ItemInfo} />
 
+            {/* <Route path="/shop/" component={Fonts} /> */}
 
             {/* render the shopping page */}
-            <Route exact path="/shop" component={ShoppingPage} />
+            <Route exact path="/" component={ShoppingPage} />
 
             
           </Switch>

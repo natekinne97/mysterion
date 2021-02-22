@@ -8,6 +8,19 @@ import './Contact.css';
 // and a redirect will happen after 4 seconds
 class Contact extends React.Component{
 
+  // handle submit
+  handleSubmit = (e)=> {
+    e.preventDefault();
+    const {
+      organization,
+      full_name,
+      phone,
+      subject,
+      message
+    } = e.target();
+    
+  }
+
     render(){
         return (
           <div className="contact-us">

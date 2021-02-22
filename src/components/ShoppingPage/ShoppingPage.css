@@ -44,10 +44,6 @@ display: flex;
     width: 60vw;
 }
 
-.shopping-container{
-   
-}
-
 .shopping-item{
     border: 1px solid black;
     margin: .1em;

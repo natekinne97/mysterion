@@ -2,7 +2,7 @@ import React from 'react';
 import ITEMS from '../../ShoppingItems';
 import {Link} from 'react-router-dom';
 
-
+import SubscriberForm from '../SubscriberForm/SubscriberForm';
 
 import './ShoppingPage.css';
 
@@ -77,10 +77,11 @@ class ShoppingPage extends React.Component{
               {this.renderFakeImages()}
               <div className="orange-div">
                 <h1>Coming this Fall</h1>
-                <form>
+                <SubscriberForm styles="shopping-page-form"/>
+                {/* <form>
                     <input type='email' placeholder="Subscribe to our news letter" required/>
                     <button className='red-btn'>Subscribe</button>
-                </form>
+                </form> */}
               </div>
             </div>
           </div>

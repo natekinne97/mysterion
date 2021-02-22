@@ -12,62 +12,42 @@ class Cart extends React.Component{
         this.context.removeItem(id);
     }
 
-    renderItems(){
-        if(this.context.numberOfItems > 0 ){
-           
-            let itemsDisplay = this.context.items.map(item=>(
-                <div key={item.id} className="item">
-                    <div className="tiny-pic" style={{
-                        backgroundImage: `url(${item.img})`,
-                        backgroundSize: 'cover',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundPosition: 'center'
-                    }}></div>
-                    <Link to={`/shop/${item.id}`}>{item.title}</Link>
-                    <p className="remove" onClick={e => this.removeItemFromCart(item.id)}>Remove</p>
-                    <p>${item.price}</p>
-                </div>
-            ));
-
-            return itemsDisplay;
-        }else{
-            return (<p>
-             Go find something you like first!
-            </p>)
+    calculateTotal(){
+        let total = 0
+        if(this.context.items?.length){
+            this.context.items.map(item=>{
+                console.log(typeof item.price)
+                total += item.price
+            })
         }
-    }
-
-    renderTotal(){
-        if (this.context.numberOfItems > 0 && this.context.items.length > 0){
-            let prices = 0;
-
-            for(let i = 0; i< this.context.numberOfItems; i++){
-                if(this.context.items[i].price){
-                    prices += this.context.items[i].price;
-                }
-            }
-            return (
-            <div className="total-box">
-                <p>Total</p>
-                <p>{prices}</p>
-            </div>
-            );
-        }else{
-            return (
-                <div className="total-box">
-                    <p>Total</p>
-                    <p>0</p>
-                </div>
-            );
-        }
+        return total
     }
 
     render(){
         return(
             <div className="cart-page">
                 <div className="item-container">
-                    {this.renderItems()}
-                    {this.renderTotal()}
+                    <div className="cart-items">
+                        {this.context.items && this.context.items?.map(item=>(
+                        <div className="cart-item">
+                            <p>{item.font}</p>
+                            <button onClick={()=>this.removeItemFromCart(item)}>
+                                Remove
+                            </button>
+                            <p>{item?.price}</p>
+                        </div>
+                    ))}
+                    <div className="total-box">
+                        <p>Total: </p>
+                        <p>${this.calculateTotal()}</p>
+                    </div>
+                    <div className="proceed-section">
+                        <Link to='/'>Return to Shop</Link>
+                        <button>
+                            Proceed to checkout
+                        </button>
+                    </div>
+                    </div>
                 </div>
             </div>
         );
