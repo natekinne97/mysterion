@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faCloud } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
-
+import SubscriberForm from '../SubscriberForm/SubscriberForm';
 import './Footer.css';
 // handle subscriptions to news letter
 class Footer extends React.Component{
@@ -54,7 +54,8 @@ class Footer extends React.Component{
               </div>
             </div>
             <div className="rights">
-              <form className="news-letter-form">
+              <SubscriberForm styles="footerForm" />
+              {/* <form className="news-letter-form">
                 <input
                   type="email"
                   placeholder="Subscribe to our news letter"
@@ -63,7 +64,7 @@ class Footer extends React.Component{
                 <button type="submit" className="red-btn">
                   Sign Up
                   </button>
-              </form>
+              </form> */}
               <a href="mailto:mysterion@gmail.com">Mysterion@gmail.com</a>
               
             </div>

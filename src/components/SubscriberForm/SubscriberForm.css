@@ -1,0 +1,15 @@
+.footerForm input{
+    height: 2.3em;
+}
+
+.shopping-page-form{
+    width: 49%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.shopping-page-form input{
+    height: 2.3em;
+    width: 72%;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import Slide from '../Slider/Slide';
-import {RenderWorkData, sortData, findHighlight} from '../Work/Work';
-import config from '../../config';
+import {RenderWorkData} from '../Work/Work';
+import { getProjects } from "../Services/service";
 import './Homepage.css';
 
 // render homepage as well as get information
@@ -26,21 +26,12 @@ class Homepage extends React.Component{
     // this will run in didmount
     // it will make the call to the server to get all the images for the slide
     getImg = async() =>{
-        
-      
-        // get the data from contentful
-        const fetchedData = await fetch(`${config.API_ENDPOINT}`);
-        // change the data to json
-        const data = await fetchedData.json();
-        // sort the data
-        let allData = await sortData(data);
-        // find the highlight
-        let filtered = await findHighlight(allData);
-        
-       
+
+        const projects = await getProjects("highlights");
+        console.log(projects, 'homepage projects')
         this.setState({
             // set the data to the filtered[0] to remove the obj from the array
-            data: filtered[0]
+            data: projects
         })
         
     }

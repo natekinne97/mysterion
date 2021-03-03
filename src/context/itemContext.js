@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {addItemToStorage, getLocalStorageItems, setItems} from '../services/addItemToLocalStorage'
 
 const itemContext = new React.createContext({
     // data
@@ -21,7 +22,7 @@ export default itemContext;
 export class ItemProvider extends Component{
 
     state = {
-        items: [],
+        items: getLocalStorageItems(),
         numberOfItems: 0
     }
 
@@ -30,30 +31,33 @@ export class ItemProvider extends Component{
       this.setState({
           items: item
       }, ()=>{
-            
-            this.getNumberOfItems();
+        this.getNumberOfItems();
       })
      
     }
 
     addItems = items =>{
-       
+       console.log(items, 'items being added')
+       addItemToStorage(items)
         this.setItems([
             items,
             ...this.state.items,
         ])
     }
 
-    removeItem = id =>{
-        let newItemsArray = this.state.items.filter(items => Number(items.id) !== Number(id) );
-      
+    removeItem = item =>{
+        console.log('removeItemCalled')
+        let newItemsArray = this.state.items.filter(items => items.font !== item.font);
+        localStorage.removeItem('items')
         this.setItems(newItemsArray);
+        setItems(newItemsArray)
         this.getNumberOfItems();
     }
 
     getNumberOfItems = ()=>{
+        const numberOfItems = this.state.items.length || getLocalStorageItems()?.length
         this.setState({
-            numberOfItems: this.state.items.length
+            numberOfItems: numberOfItems
         });
     }
 

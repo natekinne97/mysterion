@@ -1,0 +1,122 @@
+
+.fonts{
+	display: flex;
+	justify-content: center;
+	background-color: #DCCFD6;
+}
+
+.font-container{
+	width:80%;
+}
+
+.font-names-title{
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.font-names{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+.char{
+	font-size: 110px;
+}
+
+.variants{
+	line-height: 15px;
+}
+
+.selector{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.selector p {
+	margin-left: 10%;
+}
+
+.buy-font{
+  background:  #E83835;
+ padding-top: 10vh;
+}
+
+.buy-controls{
+    width: 84vw;
+    margin: 0 auto;
+}
+
+.buy-options{
+    display: flex;
+    flex-direction: column;
+    width: 81%;
+}
+
+.product-options{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.price{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 53%;
+}
+
+.purchase-options{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 98.5vw;
+}
+
+.type-selector{
+    color: white;
+    background: black;
+}
+
+.license-selector{
+    color: #E83835;
+    background: black;
+}
+
+.product{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    line-height: 2px;
+    width: 93%;
+    min-height: 50px;
+    line-height: 24px;
+    align-items: center;
+}
+
+.product:last-child{
+    margin-bottom: 25px;
+}
+
+.add-product-button{
+    color: white;
+    background: black;
+    border-radius: 20%;
+    height: 21px;
+}
+
+/* text colors */
+.black{
+    color: black;
+}
+
+.gray{
+    color: gray;
+}
+
+.red{
+    color: red;
+}
