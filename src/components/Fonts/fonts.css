@@ -1,3 +1,9 @@
+@import url('https://res.cloudinary.com/ddgno5xuc/raw/upload/v1615070257/Multipolar-Black_vaacey.ttf');
+
+@font-face{
+    font-family: 'Multipolar-Black';
+    src: url('https://res.cloudinary.com/ddgno5xuc/raw/upload/v1615070257/Multipolar_i8cprx.ttf');
+}
 
 .fonts{
 	display: flex;
@@ -97,6 +103,15 @@
     align-items: center;
 }
 
+.try-font{
+    font-size: 30px;
+    background-color: whitesmoke;
+}
+
+.thing{
+    font-family: Multipolar;
+}
+
 .product:last-child{
     margin-bottom: 25px;
 }
@@ -104,7 +119,6 @@
 .add-product-button{
     color: white;
     background: black;
-    border-radius: 20%;
     height: 21px;
 }
 

@@ -1,18 +1,17 @@
 import React, { useContext } from 'react'
-import {get} from 'lodash'
+import {get, cloneDeep} from 'lodash'
 import itemContext from '../../context/itemContext'
 import { getLocalStorageItems } from '../../services/addItemToLocalStorage'
 import { idGenerator } from './service'
-
+import {FontLoader} from './fontLoader'
 
 const BuyOptions = ({ sectionName, fonts, price})=>{
     const {addItems, removeItem} = useContext(itemContext)
     if(!fonts)return null
-    console.log(fonts, 'buyoptions')
     const currentCartItems = getLocalStorageItems()
-    console.log(get(fonts, 'prices.individual'), 'price')
+    const fontFileUrl = get(fonts, 'fontFileName')
+
     const addToCart = (item)=>{
-        console.log(item, 'item being added to cart')
         addItems(item)
     }  
     
@@ -50,7 +49,8 @@ const BuyOptions = ({ sectionName, fonts, price})=>{
             <div className="product-options">
                 {(fonts?.styles && sectionName === 'Individual') && fonts?.styles.map(style=>(
                     <div className="product" key={idGenerator(99)}>
-                        <p>{style}</p>
+                        {FontLoader(style, fontFileUrl[style])}
+                        <p id={style} style={{fontFamily: style}} className="thing">{style}</p>
                         {/* todo add the price key and name to the cart */}
                         {addedToCart(style, price)}
                     </div>
@@ -58,7 +58,7 @@ const BuyOptions = ({ sectionName, fonts, price})=>{
 
                 {(fonts?.pairs && sectionName === 'Pair')&& fonts?.pairs?.map(style=>(
                     <div className="product" key={idGenerator(99)}>
-                        <p>{style}</p>
+                        <p id="">{style}</p>
                         {/* todo add the price key and name to the cart */}
                         {addedToCart(style, price)}
                     </div>
@@ -78,8 +78,9 @@ const BuyOptions = ({ sectionName, fonts, price})=>{
 
 const AddItemToCart = (fonts)=>{
     if(!fonts)return null
-    console.log(fonts, 'fonts')
+
     fonts = fonts?.fonts
+    
     return (
         <div className="buy-font">
             <div className="buy-controls">

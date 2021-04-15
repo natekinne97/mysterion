@@ -37,7 +37,6 @@ export class ItemProvider extends Component{
     }
 
     addItems = items =>{
-       console.log(items, 'items being added')
        addItemToStorage(items)
         this.setItems([
             items,
@@ -46,7 +45,6 @@ export class ItemProvider extends Component{
     }
 
     removeItem = item =>{
-        console.log('removeItemCalled')
         let newItemsArray = this.state.items.filter(items => items.font !== item.font);
         localStorage.removeItem('items')
         this.setItems(newItemsArray);

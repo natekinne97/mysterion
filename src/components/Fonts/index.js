@@ -33,12 +33,11 @@ const Fonts = ()=>{
     useEffect(()=>{
        async function thing(){
            const data = await getFontData()
-           console.log(data, 'data')
            setFonts(data)
        }
        thing()
     }, [])
-    console.log(fonts, 'fonts in fonts thing')
+   
     return (
         <div>
             {fonts?.length && fonts?.map((font)=>(

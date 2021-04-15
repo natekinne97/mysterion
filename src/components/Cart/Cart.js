@@ -16,7 +16,6 @@ class Cart extends React.Component{
         let total = 0
         if(this.context.items?.length){
             this.context.items.map(item=>{
-                console.log(typeof item.price)
                 total += item.price
             })
         }
@@ -34,18 +33,19 @@ class Cart extends React.Component{
                             <button onClick={()=>this.removeItemFromCart(item)}>
                                 Remove
                             </button>
-                            <p>{item?.price}</p>
+                            <p>${item?.price}</p>
                         </div>
                     ))}
                     <div className="total-box">
-                        <p>Total: </p>
-                        <p>${this.calculateTotal()}</p>
+                        <div>
+                                <p>Total:  ${this.calculateTotal()}</p>
+                        </div>
                     </div>
                     <div className="proceed-section">
                         <Link to='/'>Return to Shop</Link>
-                        <button>
+                        <Link to='/'>
                             Proceed to checkout
-                        </button>
+                        </Link>
                     </div>
                     </div>
                 </div>

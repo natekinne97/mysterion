@@ -28,7 +28,7 @@ class Homepage extends React.Component{
     getImg = async() =>{
 
         const projects = await getProjects("highlights");
-        console.log(projects, 'homepage projects')
+ 
         this.setState({
             // set the data to the filtered[0] to remove the obj from the array
             data: projects

@@ -7,19 +7,16 @@ export const idGenerator = (max)=>{
 
 const mapFontData = (data)=>{
     const items = get(data, 'items')
-    console.log(data, 'data')
   
     let fonts = []
     items.forEach(item=>{
 
         const fields = get(item, 'fields')
-        console.log(fields, 'fields')
-        console.log(get(fields, 'textImageOverlay'), 'things')
         const textImageOverlay = get(fields, 'textImageOverlay')
+
         let overlayImage = []
         if(textImageOverlay?.length){
             textImageOverlay.forEach(elem => {
-                console.log(elem, 'elem')
                 overlayImage.push({
                     text: get(elem?.fields, 'text'),
                     textColor: get(elem?.fields, 'textColor[0]'),
@@ -40,7 +37,8 @@ const mapFontData = (data)=>{
             },
             license: get(fields, 'license'),
             pairs: get(fields, 'paring'),
-            overlayImage: overlayImage
+            overlayImage: overlayImage,
+            fontFileName: get(fields, 'fontFileName')
         })
     })
     return fonts
