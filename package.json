@@ -18,8 +18,10 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^3.4.4",
-    "typeface-roboto": "0.0.54"
+    "react-scripts": "^4.0.3",
+    "typeface-roboto": "0.0.54",
+    "uuid": "^8.3.2",
+    "webfont": "^9.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

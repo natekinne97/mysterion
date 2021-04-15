@@ -1,7 +1,9 @@
 .cart-item{
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
+    width: 88%;
+    margin: 0 auto;
 }
 
 .cart-item p:first-child{
@@ -11,26 +13,33 @@
 .cart-item button{
     background: black;
     color: #E83835;
-    border-radius: 40px;
 }
 
 .total-box{
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
+    width: 88%;
+    margin: 0 auto;
 }
 
+
+
 .proceed-section{
-        display: flex;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: baseline;
     align-items: baseline;
-    justify-content: space-around;
-    margin-bottom: 50px;
+    -webkit-justify-content: space-around;
+    justify-content: space-between;
+    width: 88%;
+    margin: 0 auto;
 }
 
 .proceed-section a{
     color: white;
     border: 1px solid black;
     background: black;
-    border-radius: 4px;
+
 }
 
 .proceed-section button{

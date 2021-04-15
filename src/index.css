@@ -1,13 +1,15 @@
 
 @font-face {
-font-family:"template-gothic";
-src:url("https://use.typekit.net/af/7a9348/00000000000000003b9add0c/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"),url("https://use.typekit.net/af/7a9348/00000000000000003b9add0c/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"),url("https://use.typekit.net/af/7a9348/00000000000000003b9add0c/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");
-font-display:auto;font-style:normal;font-weight:400;
+font-family:"multipolar-black";
+src:url("https://res.cloudinary.com/ddgno5xuc/raw/upload/v1615070257/Multipolar-BoldItalic_bkz4lj.ttf") format("opentype");
+font-display:auto;
+font-style:normal;
+font-weight:400;
 }
 
 /* all general classes used throughout multiple components will go here */
 *{
-	font-family: template-gothic, sans-serif;
+	font-family: multipolar-black, sans-serif;
 
 font-weight: 400;
 
@@ -43,4 +45,14 @@ a{
 
 .red{
 	color: red;
+}
+
+main{
+	position: relative;
+    min-height: 100vh;
+}
+
+footer{
+	position: absolut;
+	bottom: 0;
 }
