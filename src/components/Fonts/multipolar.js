@@ -1,51 +1,58 @@
 import React from 'react'
-import {idGenerator} from './service'
-import {get, isEmpty} from 'lodash'
+import { idGenerator } from './service'
+import { get, isEmpty } from 'lodash'
 import { useState } from 'react'
+import fontStyle from './fontStyle'
 
+const Multipolar = ({ fonts }) => {
+    const [ selectedFont, setSelectedFont ] = useState(null)
+    const [ allowEdit, setAllowEdit ] = useState(false)
 
-
-const Multipolar = ({fonts})=>{
-    const [selectedFont, setSelectedFont] = useState(null)
-
-    if(!fonts)return null
+    if (!fonts) return null
 
     const fontStyles = get(fonts, 'styles')
-    
-    const handleChange = (change)=>{
+
+    const handleChange = (change) => {
         setSelectedFont(change)
+    }
+
+    const makeEditable = () => {
+        if (!allowEdit) {
+            setAllowEdit(true)
+        }
     }
 
     // fonts
     return (
-        <div className="fonts">
-           <div className="font-container">
-               {/*  */}
-            <div className="font-names-title">
-                {/* font-names */}
-                 <div className="">
-                     {/* font-class-name */}
-                <p className="red">{fonts?.title}</p>
-                <div className="variants">
-                    {!isEmpty(fontStyles) && fontStyles.map(font=>(
-                        <p style={{ fontFamily: font }} key={idGenerator(99)}>{font}</p>
-                    ))}
+        <div className={fontStyle.fonts}>
+
+            <div className={fontStyle.fontContainer}>
+                {/*  */}
+                <div className={fontStyle.fontNamesTitle}>
+                    {/* font-names */}
+                    <div>
+                        {/* font-class-name */}
+                        <p className="text-red-600 text-opacity-100">{fonts?.title}</p>
+                        <div className={fontStyle.variants}>
+                            {!isEmpty(fontStyles) && fontStyles.map(font => (
+                                <h4 style={{ fontFamily: font }} key={idGenerator(309)}>{font}</h4>
+                            ))}
+                        </div>
+                    </div>
+                    <h3 className="char">&?</h3>
                 </div>
-             </div>
-             <h3 className="char">&?</h3>
-            </div>
-                <div className="selector">
-                     <select className="type-selector" onChange={e => handleChange(e.target.value)}>
-                        {!isEmpty(fontStyles) && fontStyles.map(font=>(
-                         <option key={idGenerator(79)} value={font}>{font}</option>
+                <div className={fontStyle.selector}>
+                    <select className="type-selector" onChange={e => handleChange(e.target.value)}>
+                        {!isEmpty(fontStyles) && fontStyles.map(font => (
+                            <option key={idGenerator(200)} value={font}>{font}</option>
                         ))}
-                     </select>
-                     <p>Type with specimen</p>
+                    </select>
+                    <p className={fontStyle.selectorP}>Type with specimen</p>
                 </div>
-                <p className="try-font" style={{ fontFamily: selectedFont }} contentEditable="true">
+                <p onClick={makeEditable} className={fontStyle.tryFont} style={{ fontFamily: selectedFont }} contentEditable={allowEdit}>
                     "They promised us flying cars but all we got was 150 characters" - Peter Thiel
                 </p>
-           </div>
+            </div>
         </div>
     )
 }

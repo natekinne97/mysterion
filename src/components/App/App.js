@@ -9,10 +9,10 @@ import Menu from '../Menu/Menu';
 import Footer from '../Footer/Footer';
 import Fonts from '../Fonts'
 import Homepage from '../Homepage/Homepage';
-import {Work} from '../Work/Work';
+// import { Work } from '../Work/Work';
 import Contact from '../Contact/Contact';
 import About from '../About/About';
-import LandingPage from '../LandingPage/LandingPage';
+// import LandingPage from '../LandingPage/LandingPage';
 
 
 // shopping
@@ -33,11 +33,11 @@ class App extends React.Component {
   static contextType = itemContext;
   state = { hasError: false }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError (error) {
     console.error(error)
     return { hasError: true }
   }
-  componentDidMount() {
+  componentDidMount () {
     try {
       /*
       set the function (callback) to call when a user goes idle
@@ -69,7 +69,7 @@ class App extends React.Component {
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     try {
       /*
       when the app unmounts,
@@ -100,29 +100,29 @@ class App extends React.Component {
     this.forceUpdate()
   }
 
- 
-  renderRegularMenu(){
-    return(
+
+  renderRegularMenu () {
+    return (
       <>
-        {['/', '/work', '/about', '/cart', '/contact', 
-        '/shop/:id', '/shop'].map((path, index)=>(
-          <Route
-            key={index**4}
-            exact
-            path={path}
-            component={Menu}
-          />
-        ))}
+        {[ '/', '/work', '/about', '/cart', '/contact',
+          '/shop/:id', '/shop' ].map((path, index) => (
+            <Route
+              key={index ** 4}
+              exact
+              path={path}
+              component={Menu}
+            />
+          ))}
       </>
 
     );
   }
 
-  renderFooter(){
+  renderFooter () {
     return (
       <>
-        {['/', '/work', '/about', '/cart', '/contact',
-          '/shop/:id', '/shop'].map((path, index) => (
+        {[ '/', '/work', '/about', '/cart', '/contact',
+          '/shop/:id', '/shop' ].map((path, index) => (
             <Route
               key={index ** 3}
               exact
@@ -136,7 +136,7 @@ class App extends React.Component {
   }
 
 
-  render() {
+  render () {
     localStorage.lastUrl = window.location.pathname;
     return (
       <div>
@@ -144,8 +144,8 @@ class App extends React.Component {
           {/* menu goes here */}
           {this.renderRegularMenu()}
           {/* <Menu/> */}
-         
-          
+
+
         </nav>
         <main>
           <Switch>
@@ -164,10 +164,10 @@ class App extends React.Component {
           in the future it will be based on whether the component has an auth
           token.
           */}
-       
-           
+
+
             {/* render the about page */}
-            {/* <Route path="/about" component={About} /> */}
+            <Route path="/about" component={About} />
 
             <Route path="/cart" component={Cart} />
 
@@ -182,10 +182,10 @@ class App extends React.Component {
             {/* render the shopping page */}
             <Route exact path="/" component={ShoppingPage} />
 
-            
+
           </Switch>
         </main>
-        <footer>
+        <footer className="w-full">
           {/* render the footer */}
           {this.renderFooter()}
         </footer>

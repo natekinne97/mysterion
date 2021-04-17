@@ -5,49 +5,18 @@
     src: url('https://res.cloudinary.com/ddgno5xuc/raw/upload/v1615070257/Multipolar_i8cprx.ttf');
 }
 
-.fonts{
-	display: flex;
-	justify-content: center;
-	background-color: #DCCFD6;
-}
-
-.font-container{
-	width:80%;
-}
-
-.font-names-title{
-	display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.font-names{
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-}
 .char{
 	font-size: 110px;
 }
 
-.variants{
-	line-height: 15px;
-}
-
-.selector{
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-}
-
-.selector p {
-	margin-left: 10%;
+.slide{
+    width: 54vw;
+    height: 50vh;
 }
 
 .buy-font{
   background:  #E83835;
- padding-top: 10vh;
+padding-top: 10vh;
 }
 
 .buy-controls{
@@ -55,24 +24,8 @@
     margin: 0 auto;
 }
 
-.buy-options{
-    display: flex;
-    flex-direction: column;
-    width: 81%;
-}
-
-.product-options{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    justify-content: space-around;
-}
-
-.price{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 53%;
+.min-h-1\/3{
+    min-height: 50px;
 }
 
 .purchase-options{
@@ -92,17 +45,6 @@
     background: black;
 }
 
-.product{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    line-height: 2px;
-    width: 93%;
-    min-height: 50px;
-    line-height: 24px;
-    align-items: center;
-}
-
 .try-font{
     font-size: 30px;
     background-color: whitesmoke;
@@ -116,11 +58,6 @@
     margin-bottom: 25px;
 }
 
-.add-product-button{
-    color: white;
-    background: black;
-    height: 21px;
-}
 
 /* text colors */
 .black{

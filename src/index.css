@@ -1,3 +1,8 @@
+/* ./src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 @font-face {
 font-family:"multipolar-black";
@@ -53,6 +58,15 @@ main{
 }
 
 footer{
-	position: absolut;
-	bottom: 0;
+	position: absolute;
+	/* bottom: 0; */
+}
+
+/* tailwind */
+.bg-eggshell{
+	background-color: #DCCFD6;
+}
+
+.bg-whitesmoke{
+	background-color: whitesmoke;
 }
