@@ -1,21 +1,21 @@
 import client from '../Services/ContentfulConfig'
-import {get} from 'lodash'
+import { get } from 'lodash'
 
-export const idGenerator = (max)=>{
+export const idGenerator = (max) => {
     return Math.floor(Math.random() * Math.floor(max))
 }
 
-const mapFontData = (data)=>{
+const mapFontData = (data) => {
     const items = get(data, 'items')
-  
+
     let fonts = []
-    items.forEach(item=>{
+    items.forEach(item => {
 
         const fields = get(item, 'fields')
         const textImageOverlay = get(fields, 'textImageOverlay')
 
         let overlayImage = []
-        if(textImageOverlay?.length){
+        if (textImageOverlay?.length) {
             textImageOverlay.forEach(elem => {
                 overlayImage.push({
                     text: get(elem?.fields, 'text'),
@@ -23,7 +23,7 @@ const mapFontData = (data)=>{
                     image: get(elem?.fields, 'image.fields.file.url'),
                     textPosition: get(elem?.fields, 'textPosition[0]')
                 })
-             })
+            })
         }
 
         const styles = get(fields, 'styles')
@@ -41,13 +41,19 @@ const mapFontData = (data)=>{
             fontFileName: get(fields, 'fontFileName')
         })
     })
-    return fonts
+
+    const imagesArr = fonts?.map(item => item.overlayImage)
+
+    return {
+        fonts,
+        imagesArr
+    }
 }
 
-export const getFontData = async ()=>{
+export const getFontData = async () => {
     let projects = await client.getEntries({
-      content_type: 'fonts',
-      resolveLinks: true,
+        content_type: 'fonts',
+        resolveLinks: true,
     });
     return mapFontData(projects)
 }

@@ -4,6 +4,7 @@
     justify-content: space-between;
     width: 88%;
     margin: 0 auto;
+    height: 3rem;
 }
 
 .cart-item p:first-child{
@@ -13,6 +14,8 @@
 .cart-item button{
     background: black;
     color: #E83835;
+    padding: .2rem;
+    font-size: .6rem;
 }
 
 .total-box{
@@ -39,8 +42,9 @@
     color: white;
     border: 1px solid black;
     background: black;
-
-}
+    padding: .2rem;
+    font-size: .6rem;
+}   
 
 .proceed-section button{
     background: black;

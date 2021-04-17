@@ -1,8 +1,9 @@
 {
-  "name": "mysterion",
-  "version": "0.1.0",
+  "name": "mysterion-client",
+  "version": "0.1.3",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.1.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-brands-svg-icons": "^5.15.2",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
@@ -10,6 +11,7 @@
     "contentful": "^7.15.2",
     "date-fns": "^1.30.1",
     "dotenv": "^8.2.0",
+    "helmet": "^4.5.0",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.21",
     "now": "^16.7.3",
@@ -17,6 +19,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "react-helmet": "^6.1.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^4.0.3",
     "typeface-roboto": "0.0.54",
@@ -24,7 +27,7 @@
     "webfont": "^9.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "craco start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -42,8 +45,16 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@tailwindcss/postcss7-compat": "^2.1.0",
+    "autoprefixer": "^9",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
-    "enzyme-to-json": "^3.3.5"
-  }
+    "enzyme-to-json": "^3.3.5",
+    "postcss": "^7",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
+  },
+  "main": "index.js",
+  "repository": "git@github.com:natekinne97/mysterion.git",
+  "author": "natekinne97 <nathan.kinne@gmail.com>",
+  "license": "MIT"
 }
