@@ -28,10 +28,11 @@
   },
   "scripts": {
     "start": "craco start",
+    "build:style": "tailwind build src/styles/index.css -o src/styles/tailwind.css",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "predeploy": "yarn run build",
+    "predeploy": "yarn build",
     "deploy": "now --name mysterion-app",
     "kill": " sudo kill -9 `sudo lsof -t -i:3000`"
   },
@@ -46,12 +47,12 @@
   ],
   "devDependencies": {
     "@tailwindcss/postcss7-compat": "^2.1.0",
-    "autoprefixer": "^10.2.5",
+    "autoprefixer": "^9",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "enzyme-to-json": "^3.3.5",
-    "postcss": "^8.2.10",
-    "tailwindcss": "^2.1.1"
+    "postcss": "^7",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },
   "main": "index.js",
   "repository": "git@github.com:natekinne97/mysterion.git",

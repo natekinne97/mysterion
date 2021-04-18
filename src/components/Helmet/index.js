@@ -24,7 +24,7 @@ const MetaData = ({ pageId }) => {
       setData(response)
     }
     getData()
-  }, [ getMetaData ])
+  }, [ getMetaData, setData ])
 
   console.log(data, 'data')
   return (<Helmet
